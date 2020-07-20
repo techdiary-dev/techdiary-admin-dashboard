@@ -21,6 +21,14 @@ export const ARTICLE_LIST = gql`
     }
 `;
 
+export const TOTAL_ARTICLE = gql`
+    query TOTAL_ARTICLE($page: Int, $limit: Int) {
+        articles(pagination: { page: $page, limit: $limit }) {
+            resourceCount
+        }
+    }
+`;
+
 export const GET_ARTICLE = gql`
     query GET_ARTICLE($_id: ID, $slug: String) {
         article(idOrSlug: { _id: $_id, slug: $slug }) {

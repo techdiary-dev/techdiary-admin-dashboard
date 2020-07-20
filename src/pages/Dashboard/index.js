@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
-import Budget from '../../components/Dashboard/Budget';
-import TotalUsers from '../../components/Dashboard/TotalUsers';
+import TotalUser from '../../components/Dashboard/TotalUser';
+import TotalArticle from '../../components/Dashboard/TotalArticle';
 import TasksProgress from '../../components/Dashboard/TasksProgress';
 import TotalProfit from '../../components/Dashboard/TotalProfit';
 import LatestSales from '../../components/Dashboard/LatestSales';
@@ -28,10 +28,10 @@ const DashboardPage = () => {
         <div className={classes.root}>
             <Grid container spacing={4}>
                 <Grid item lg={3} sm={6} xl={3} xs={12}>
-                    <Budget />
+                    <TotalUser />
                 </Grid>
                 <Grid item lg={3} sm={6} xl={3} xs={12}>
-                    <TotalUsers />
+                    <TotalArticle />
                 </Grid>
                 <Grid item lg={3} sm={6} xl={3} xs={12}>
                     <TasksProgress />
