@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
 
 const AccountPage = () => {
     const classes = useStyles();
+
+    useEffect(() => {
+        document.title = 'Tech Diary | Account';
+    }, []);
 
     return (
         <div className={classes.root}>

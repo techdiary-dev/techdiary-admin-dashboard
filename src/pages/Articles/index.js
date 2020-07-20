@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import { makeStyles } from '@material-ui/styles';
@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
 const ArticlesPage = () => {
     const history = useHistory();
 
+    useEffect(() => {
+        document.title = 'Tech Diary | Articles';
+    }, []);
+
     const { fetchMore } = useQuery(ARTICLE_LIST, {
         errorPolicy: 'all'
     });
@@ -30,6 +34,9 @@ const ArticlesPage = () => {
     const [state] = useState({
         columns: [
             { title: 'Title', field: 'title' },
+            { title: 'Slug', field: 'slug' },
+            { title: 'Thumbnail', field: 'thumbnail' },
+            { title: 'Tags', field: 'tags' },
             { title: 'Author', field: 'author.name' }
         ]
     });

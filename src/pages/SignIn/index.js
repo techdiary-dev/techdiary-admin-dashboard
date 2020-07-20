@@ -114,6 +114,10 @@ const SignInPage = () => {
 
     const classes = useStyles();
 
+    useEffect(() => {
+        document.title = 'Tech Diary | Signin';
+    }, []);
+
     const [formState, setFormState] = useState({
         isValid: false,
         values: {},
@@ -174,9 +178,9 @@ const SignInPage = () => {
                     password
                 }
             });
+            localStorage.setItem('AUTH_TOKEN', data.loginAdmin.token);
             Toastr.success('You have successfully signed in');
             history.push('/dashboard');
-            localStorage.setItem('AUTH_TOKEN', data.loginAdmin.token);
         } catch (e) {
             Toastr.error(e.message);
         }

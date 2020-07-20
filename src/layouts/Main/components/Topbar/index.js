@@ -42,10 +42,10 @@ const Topbar = (props) => {
     const signOutHandler = async () => {
         try {
             await logout();
-            Toastr.success('You have successfully logged out');
-            history.push('/sign-in');
             localStorage.removeItem('AUTH_TOKEN');
             client.clearStore();
+            Toastr.success('You have successfully logged out');
+            history.push('/sign-in');
             window.location.reload();
         } catch {
             Toastr.error('Internal Server Error');

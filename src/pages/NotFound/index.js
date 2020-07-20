@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography } from '@material-ui/core';
 
@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
 
 const NotFoundPage = () => {
     const classes = useStyles();
+
+    useEffect(() => {
+        document.title = 'Tech Diary | Not Found';
+    }, []);
 
     return (
         <div className={classes.root}>

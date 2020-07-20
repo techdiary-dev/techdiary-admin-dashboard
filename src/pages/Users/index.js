@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 
 import UsersTable from '../../components/UserList/UsersTable';
@@ -18,6 +18,10 @@ const UserListPage = () => {
     const classes = useStyles();
 
     const [users] = useState(mockData);
+
+    useEffect(() => {
+        document.title = 'Tech Diary | Users';
+    }, []);
 
     return (
         <div className={classes.root}>

@@ -118,6 +118,10 @@ const SignUpPage = (props) => {
 
     const classes = useStyles();
 
+    useEffect(() => {
+        document.title = 'Tech Diary | Signup';
+    }, []);
+
     const [formState, setFormState] = useState({
         isValid: false,
         values: {},

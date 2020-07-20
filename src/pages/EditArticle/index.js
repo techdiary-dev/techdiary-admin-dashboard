@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useHistory } from 'react-router-dom';
@@ -52,6 +52,10 @@ const useStyles = makeStyles((theme) => ({
 const EditArticle = ({ match }) => {
     const history = useHistory();
     const classes = useStyles();
+
+    useEffect(() => {
+        document.title = 'Tech Diary | Edit Article';
+    }, []);
 
     const { register, handleSubmit, setValue, getValues } = useForm();
 
