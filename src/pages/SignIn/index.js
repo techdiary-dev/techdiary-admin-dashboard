@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link as RouterLink, withRouter } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_ADMIN } from '../../quries/AUTH';
 import PropTypes from 'prop-types';
@@ -108,8 +108,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const SignInPage = (props) => {
-    const { history } = props;
+const SignInPage = () => {
+    const history = useHistory();
 
     const classes = useStyles();
 
@@ -157,22 +157,24 @@ const SignInPage = (props) => {
 
     const { identifier, password } = formState.values;
 
-    const handleSignIn = async (event) => {
-        event.preventDefault();
+    const handleSignIn = async (e) => {
+        e.preventDefault();
 
-        const {
-            data: {
-                loginAdmin: { token }
-            }
-        } = await loginAdmin({
+        loginAdmin({
             variables: {
                 identifier,
                 password
             }
-        });
-
-        localStorage.setItem('AUTH_TOKEN', token);
-        history.push('/dashboard');
+        }).then(
+            ({
+                data: {
+                    loginAdmin: { token }
+                }
+            }) => {
+                localStorage.setItem('AUTH_TOKEN', token);
+                history.push('/dashboard');
+            }
+        );
     };
 
     const hasError = (field) =>
@@ -269,4 +271,4 @@ SignInPage.propTypes = {
     history: PropTypes.object
 };
 
-export default withRouter(SignInPage);
+export default SignInPage;
