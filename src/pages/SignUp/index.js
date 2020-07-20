@@ -185,10 +185,10 @@ const SignUpPage = (props) => {
                 }
             });
             Toastr.success('You have successfully signed up');
+            history.push('/sign-in');
         } catch (e) {
             Toastr.error(e.message);
         }
-        history.push('/sign-in');
     };
 
     const hasError = (field) =>

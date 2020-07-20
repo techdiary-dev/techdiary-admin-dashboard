@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import Toastr from 'toastr';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useQuery, useMutation } from '@apollo/client';
@@ -66,10 +67,22 @@ const EditArticle = ({ match }) => {
 
     const [updateArticle] = useMutation(UPDATE_ARTICLE);
 
-    const onSubmit = (data) => {
-        updateArticle({
-            variables: { _id: match.params._id, body: data.body }
-        });
+    Toastr.options = {
+        closeButton: true,
+        newestOnTop: true,
+        progressBar: true
+    };
+
+    const onSubmit = async (data) => {
+        try {
+            await updateArticle({
+                variables: { _id: match.params._id, body: data.body }
+            });
+            Toastr.success('Update Successfull');
+            history.push('/articles');
+        } catch (e) {
+            Toastr.error(e.message);
+        }
     };
 
     return (
