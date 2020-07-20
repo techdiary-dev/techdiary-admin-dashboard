@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 import { REGISTER_ADMIN } from '../../quries/AUTH';
 import PropTypes from 'prop-types';
 import validate from 'validate.js';
+import Toastr from 'toastr';
 import { makeStyles } from '@material-ui/styles';
 import {
     Grid,
@@ -157,22 +158,32 @@ const SignUpPage = (props) => {
         history.goBack();
     };
 
+    Toastr.options = {
+        closeButton: true,
+        newestOnTop: true,
+        progressBar: true
+    };
+
     const [registerAdmin] = useMutation(REGISTER_ADMIN);
 
     const { name, username, email, password } = formState.values;
 
-    const handleSignUp = (event) => {
-        event.preventDefault();
+    const handleSignUp = async (e) => {
+        e.preventDefault();
 
-        registerAdmin({
-            variables: {
-                name,
-                username,
-                email,
-                password
-            }
-        });
-
+        try {
+            await registerAdmin({
+                variables: {
+                    name,
+                    username,
+                    email,
+                    password
+                }
+            });
+            Toastr.success('You have successfully signed up');
+        } catch (e) {
+            Toastr.error(e.message);
+        }
         history.push('/sign-in');
     };
 

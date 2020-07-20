@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_ADMIN } from '../../quries/AUTH';
 import PropTypes from 'prop-types';
 import validate from 'validate.js';
+import Toastr from 'toastr';
 import { makeStyles } from '@material-ui/styles';
 import {
     Grid,
@@ -153,6 +154,12 @@ const SignInPage = () => {
         }));
     };
 
+    Toastr.options = {
+        closeButton: true,
+        newestOnTop: true,
+        progressBar: true
+    };
+
     const [loginAdmin] = useMutation(LOGIN_ADMIN);
 
     const { identifier, password } = formState.values;
@@ -160,21 +167,19 @@ const SignInPage = () => {
     const handleSignIn = async (e) => {
         e.preventDefault();
 
-        loginAdmin({
-            variables: {
-                identifier,
-                password
-            }
-        }).then(
-            ({
-                data: {
-                    loginAdmin: { token }
+        try {
+            const { data } = await loginAdmin({
+                variables: {
+                    identifier,
+                    password
                 }
-            }) => {
-                localStorage.setItem('AUTH_TOKEN', token);
-                history.push('/dashboard');
-            }
-        );
+            });
+            Toastr.success('You have successfully signed in');
+            history.push('/dashboard');
+            localStorage.setItem('AUTH_TOKEN', data.loginAdmin.token);
+        } catch (e) {
+            Toastr.error(e.message);
+        }
     };
 
     const hasError = (field) =>

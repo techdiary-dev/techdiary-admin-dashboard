@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
+import Toastr from 'toastr';
 import { makeStyles } from '@material-ui/styles';
 import { AppBar, Toolbar, Badge, Hidden, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -32,13 +33,23 @@ const Topbar = (props) => {
 
     const [notifications] = useState([]);
 
-    const signOutHandler = () => {
-        logout().then(() => {
+    Toastr.options = {
+        closeButton: true,
+        newestOnTop: true,
+        progressBar: true
+    };
+
+    const signOutHandler = async () => {
+        try {
+            await logout();
+            Toastr.success('You have successfully logged out');
+            history.push('/sign-in');
             localStorage.removeItem('AUTH_TOKEN');
             client.clearStore();
-            history.push('/sign-in');
             window.location.reload();
-        });
+        } catch {
+            Toastr.error('Internal Server Error');
+        }
     };
 
     return (
