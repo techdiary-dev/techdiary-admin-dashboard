@@ -1,18 +1,20 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import PrivateRoute from './components/PrivateRoute';
-import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
+import PrivateRoute from './PrivateRoute';
+import { Main as MainLayout, Minimal as MinimalLayout } from '../layouts';
 
 import {
     Dashboard,
-    UserList,
+    Articles,
+    EditArticle,
+    Users,
     Account,
     Settings,
     SignUp,
     SignIn,
     NotFound
-} from './pages';
+} from '../pages';
 
 const Routes = () => {
     return (
@@ -25,7 +27,19 @@ const Routes = () => {
                 path="/dashboard"
             />
             <PrivateRoute
-                component={UserList}
+                component={Articles}
+                exact
+                layout={MainLayout}
+                path="/articles"
+            />
+            <PrivateRoute
+                component={EditArticle}
+                exact
+                layout={MainLayout}
+                path="/articles/edit/:_id"
+            />
+            <PrivateRoute
+                component={Users}
                 exact
                 layout={MainLayout}
                 path="/users"

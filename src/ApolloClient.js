@@ -2,7 +2,8 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-    uri: 'http://localhost:4545/'
+    uri: 'http://localhost:4545/',
+    credentials: 'same-origin'
 });
 
 const authLink = setContext((_, { headers }) => {
