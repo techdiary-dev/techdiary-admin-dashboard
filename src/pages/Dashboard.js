@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
-import TotalUser from '../../components/Dashboard/TotalUser';
-import TotalArticle from '../../components/Dashboard/TotalArticle';
-import TasksProgress from '../../components/Dashboard/TasksProgress';
-import TotalProfit from '../../components/Dashboard/TotalProfit';
-import LatestSales from '../../components/Dashboard/LatestSales';
-import UsersByDevice from '../../components/Dashboard/UsersByDevice';
-import LatestProducts from '../../components/Dashboard/LatestProducts';
-import LatestOrders from '../../components/Dashboard/LatestOrders';
+import TotalUser from '../components/Dashboard/TotalUser';
+import TotalArticle from '../components/Dashboard/TotalArticle';
+import TasksProgress from '../components/Dashboard/TasksProgress';
+import TotalProfit from '../components/Dashboard/TotalProfit';
+import LatestSales from '../components/Dashboard/LatestSales';
+import UsersByDevice from '../components/Dashboard/UsersByDevice';
+import LatestProducts from '../components/Dashboard/LatestProducts';
+import LatestOrders from '../components/Dashboard/LatestOrders';
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
-import { TOTAL_ARTICLE } from '../../../quries/ARTICLE';
+import { TOTAL_ARTICLE } from '../../quries/ARTICLE';
 
 const useStyles = makeStyles((theme) => ({
     root: {

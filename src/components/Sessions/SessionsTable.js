@@ -19,7 +19,7 @@ import {
     TablePagination
 } from '@material-ui/core';
 
-import { getInitials } from '../../../helpers';
+import { getInitials } from '../../helpers';
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const UsersTable = (props) => {
+const SessionsTable = (props) => {
     const { className, users, ...rest } = props;
 
     const classes = useStyles();
@@ -200,9 +200,9 @@ const UsersTable = (props) => {
     );
 };
 
-UsersTable.propTypes = {
+SessionsTable.propTypes = {
     className: PropTypes.string,
     users: PropTypes.array.isRequired
 };
 
-export default UsersTable;
+export default SessionsTable;

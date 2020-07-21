@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { REGISTER_ADMIN } from '../../quries/AUTH';
+import { REGISTER_ADMIN } from '../quries/AUTH';
 import PropTypes from 'prop-types';
 import validate from 'validate.js';
 import Toastr from 'toastr';

@@ -5,7 +5,7 @@ import Toastr from 'toastr';
 import { makeStyles } from '@material-ui/styles';
 import { useQuery, useMutation } from '@apollo/client';
 
-import { ARTICLE_LIST, DELETE_ARTICLE } from '../../quries/ARTICLE';
+import { ARTICLE_LIST, DELETE_ARTICLE } from '../quries/ARTICLE';
 
 const useStyles = makeStyles((theme) => ({
     root: {

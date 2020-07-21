@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
-import Notifications from '../../components/Settings/Notifications';
-import Password from '../../components/Settings/Password';
+import AccountDetails from '../components/Account/AccountDetails';
+import AccountProfile from '../components/Account/AccountProfile';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,25 +11,25 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const SettingsPage = () => {
+const AccountPage = () => {
     const classes = useStyles();
 
     useEffect(() => {
-        document.title = 'Tech Diary | Settings';
+        document.title = 'Tech Diary | Account';
     }, []);
 
     return (
         <div className={classes.root}>
             <Grid container spacing={4}>
-                <Grid item md={7} xs={12}>
-                    <Notifications />
+                <Grid item lg={4} md={6} xl={4} xs={12}>
+                    <AccountProfile />
                 </Grid>
-                <Grid item md={5} xs={12}>
-                    <Password />
+                <Grid item lg={8} md={6} xl={8} xs={12}>
+                    <AccountDetails />
                 </Grid>
             </Grid>
         </div>
     );
 };
 
-export default SettingsPage;
+export default AccountPage;

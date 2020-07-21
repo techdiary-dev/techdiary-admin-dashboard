@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
 
-import SearchInput from '../../SearchInput';
+import SearchInput from '../SearchInput';
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const UsersToolbar = (props) => {
+const SessionsToolbar = (props) => {
     const { className, ...rest } = props;
 
     const classes = useStyles();
@@ -53,8 +53,8 @@ const UsersToolbar = (props) => {
     );
 };
 
-UsersToolbar.propTypes = {
+SessionsToolbar.propTypes = {
     className: PropTypes.string
 };
 
-export default UsersToolbar;
+export default SessionsToolbar;

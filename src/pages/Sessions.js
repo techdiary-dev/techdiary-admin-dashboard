@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 
-import UsersTable from '../../components/UserList/UsersTable';
-import UsersToolbar from '../../components/UserList/UsersToolbar';
+import SessionsTable from '../components/Sessions/SessionsTable';
+import SessionsToolbar from '../components/Sessions/SessionsToolbar';
 import mockData from './data';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const UserListPage = () => {
+const SessionsPage = () => {
     const classes = useStyles();
 
     const [users] = useState(mockData);
@@ -25,12 +25,12 @@ const UserListPage = () => {
 
     return (
         <div className={classes.root}>
-            <UsersToolbar />
+            <SessionsToolbar />
             <div className={classes.content}>
-                <UsersTable users={users} />
+                <SessionsTable users={users} />
             </div>
         </div>
     );
 };
 
-export default UserListPage;
+export default SessionsPage;

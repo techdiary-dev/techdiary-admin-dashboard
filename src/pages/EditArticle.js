@@ -14,7 +14,7 @@ import {
     Typography
 } from '@material-ui/core';
 
-import { GET_ARTICLE, UPDATE_ARTICLE } from '../../quries/ARTICLE';
+import { GET_ARTICLE, UPDATE_ARTICLE } from '../quries/ARTICLE';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const EditArticle = ({ match }) => {
+const EditArticlePage = ({ match }) => {
     const history = useHistory();
     const classes = useStyles();
 
@@ -125,4 +125,4 @@ const EditArticle = ({ match }) => {
     );
 };
 
-export default EditArticle;
+export default EditArticlePage;
