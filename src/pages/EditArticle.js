@@ -98,6 +98,22 @@ const EditArticlePage = ({ match }) => {
         <div className={classes.root}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={3}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
+                        <Card className={`${classes.overflow}`}>
+                            <CardContent>
+                                <Typography>Article Title</Typography>
+                                <TextField
+                                    variant="outlined"
+                                    placeholder="Title"
+                                    label="Title"
+                                    name="title"
+                                    margin="normal"
+                                    fullWidth
+                                    inputRef={register}
+                                />
+                            </CardContent>
+                        </Card>
+                    </Grid>
                     <Grid item sm={12}>
                         <Card className={`${classes.overflow}`}>
                             <CardContent>
@@ -115,21 +131,6 @@ const EditArticlePage = ({ match }) => {
                         </Card>
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
-                            <CardContent>
-                                <Typography>Article Title</Typography>
-                                <TextField
-                                    variant="outlined"
-                                    placeholder="Title"
-                                    label="Title"
-                                    name="title"
-                                    margin="normal"
-                                    fullWidth
-                                    inputRef={register}
-                                />
-                            </CardContent>
-                        </Card>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
