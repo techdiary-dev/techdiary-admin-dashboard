@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 
 import UsersTable from '../components/Users/UsersTable';
-import UsersToolbar from '../components/Users/UsersToolbar';
 import mockData from './data';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +24,6 @@ const UsersPage = () => {
 
     return (
         <div className={classes.root}>
-            <UsersToolbar />
             <div className={classes.content}>
                 <UsersTable users={users} />
             </div>

@@ -5,10 +5,10 @@ import { Grid } from '@material-ui/core';
 import TotalArticle from '../components/Dashboard/TotalArticle';
 import TotalUser from '../components/Dashboard/TotalUser';
 import TotalSession from '../components/Dashboard/TotalSession';
-import TotalProfit from '../components/Dashboard/TotalProfit';
-import LatestSales from '../components/Dashboard/LatestSales';
-import UsersByDevice from '../components/Dashboard/UsersByDevice';
-import LatestOrders from '../components/Dashboard/LatestOrders';
+// import TotalProfit from '../components/Dashboard/TotalProfit';
+// import LatestSales from '../components/Dashboard/LatestSales';
+// import UsersByDevice from '../components/Dashboard/UsersByDevice';
+// import LatestOrders from '../components/Dashboard/LatestOrders';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,22 +35,25 @@ const DashboardPage = () => {
                 <Grid item lg={3} sm={6} xl={3} xs={12}>
                     <TotalSession />
                 </Grid>
-                <Grid item lg={3} sm={6} xl={3} xs={12}>
-                    <TotalProfit />
-                </Grid>
-                <Grid item lg={8} md={12} xl={9} xs={12}>
-                    <LatestSales />
-                </Grid>
-                <Grid item lg={4} md={6} xl={3} xs={12}>
-                    <UsersByDevice />
-                </Grid>
-
-                <Grid item lg={12} md={12} xl={12} xs={12}>
-                    <LatestOrders />
-                </Grid>
             </Grid>
         </div>
     );
 };
 
 export default DashboardPage;
+
+// <Grid item lg={3} sm={6} xl={3} xs={12}>
+//     <TotalProfit />
+// </Grid>
+
+// <Grid item lg={8} md={12} xl={9} xs={12}>
+//     <LatestSales />
+// </Grid>
+
+// <Grid item lg={4} md={6} xl={3} xs={12}>
+//     <UsersByDevice />
+// </Grid>
+
+// <Grid item lg={12} md={12} xl={12} xs={12}>
+//     <LatestOrders />
+// </Grid>
