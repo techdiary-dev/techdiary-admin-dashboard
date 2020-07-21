@@ -44,10 +44,27 @@ export const GET_ARTICLE = gql`
 `;
 
 export const UPDATE_ARTICLE = gql`
-    mutation UPDATE_ARTICLE($_id: ID!, $body: String) {
-        updateArticle(_id: $_id, data: { body: $body }) {
+    mutation UPDATE_ARTICLE(
+        $_id: ID!
+        $title: String
+        $body: String
+        $tags: [String!]
+        $isPublished: Boolean
+        $thumbnail: String
+        $seriesName: String
+    ) {
+        updateArticle(
+            _id: $_id
+            data: {
+                title: $title
+                body: $body
+                tags: $tags
+                isPublished: $isPublished
+                thumbnail: $thumbnail
+                seriesName: $seriesName
+            }
+        ) {
             _id
-            body
         }
     }
 `;
