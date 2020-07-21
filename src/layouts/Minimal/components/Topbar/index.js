@@ -5,31 +5,31 @@ import { makeStyles } from '@material-ui/styles';
 import { AppBar, Toolbar } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
-  root: {
-    boxShadow: 'none'
-  }
+    root: {
+        boxShadow: 'none'
+    }
 }));
 
 const Topbar = (props) => {
-  const { className, ...rest } = props;
+    const { className, ...rest } = props;
 
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <AppBar
-      {...rest}
-      className={clsx(classes.root, className)}
-      color="primary"
-      position="fixed">
-      <Toolbar>
-        <img alt="Logo" src="/images/logos/logo.png" />
-      </Toolbar>
-    </AppBar>
-  );
+    return (
+        <AppBar
+            {...rest}
+            className={clsx(classes.root, className)}
+            color="primary"
+            position="fixed">
+            <Toolbar>
+                <img alt="Logo" src="/images/logos/logo.png" />
+            </Toolbar>
+        </AppBar>
+    );
 };
 
 Topbar.propTypes = {
-  className: PropTypes.string
+    className: PropTypes.string
 };
 
 export default Topbar;

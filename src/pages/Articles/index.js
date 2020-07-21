@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import MaterialTable from 'material-table';
+import Toastr from 'toastr';
 import { makeStyles } from '@material-ui/styles';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -40,6 +41,12 @@ const ArticlesPage = () => {
             { title: 'Author', field: 'author.name' }
         ]
     });
+
+    Toastr.options = {
+        closeButton: true,
+        newestOnTop: true,
+        progressBar: true
+    };
 
     return (
         <div className={classes.root}>

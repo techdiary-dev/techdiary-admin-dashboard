@@ -56,7 +56,6 @@ const Topbar = (props) => {
         <AppBar {...rest} className={clsx(classes.root, className)}>
             <Toolbar>
                 <img alt="Logo" src="/images/logos/logo.png" />
-
                 <div className={classes.flexGrow} />
                 <Hidden mdDown>
                     <IconButton color="inherit">
