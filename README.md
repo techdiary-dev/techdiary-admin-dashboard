@@ -1,25 +1,10 @@
 ## Tech Diary Admin Dashboard
 
-### Install the dependencies
+### .env
 
--   Use the CLI to install all the dependencies.
+Create `.env.development` or `.env` and copy / paste this (you can rename `.env.example` but please alawys gitignore all env):
 
-```bash
-npm install or, yarn
 ```
-
-### Start the project
-
-```bash
-npm start
+REACT_APP_API_URL="http://localhost:4545"
+PORT=4343
 ```
-
-### Production Build
-
--   Once you are ready to publish the project, you can easily make a production using this command:
-
-```bash
-npm run build
-```
-
-### App is now running at localhost:3000
