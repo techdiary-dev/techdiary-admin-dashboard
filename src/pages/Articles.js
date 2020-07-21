@@ -75,16 +75,14 @@ const ArticlesPage = () => {
                                 variables: { _id: data._id }
                             }).then(() => {
                                 resolve();
+                                Toastr.success(
+                                    'You have deleted article successfully'
+                                );
                             });
                         });
                     }
                 }}
                 actions={[
-                    {
-                        icon: 'add',
-                        tooltip: 'Add Article',
-                        isFreeAction: true
-                    },
                     {
                         icon: 'edit',
                         tooltip: 'Edit Article',
