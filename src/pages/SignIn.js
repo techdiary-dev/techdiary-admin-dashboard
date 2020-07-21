@@ -16,6 +16,8 @@ import {
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+import Logo from '../utils/logo';
+
 const schema = {
     identifier: {
         presence: { allowEmpty: false, message: 'is required' },
@@ -194,7 +196,7 @@ const SignInPage = () => {
             <Grid className={classes.grid} container>
                 <Grid className={classes.quoteContainer} item lg={5}>
                     <div className={classes.quote}>
-                        <img alt="Logo" src="/images/logos/logo.png" />
+                        <Logo fillColor="#2f3432" strokeColor="#000" />
                     </div>
                 </Grid>
                 <Grid className={classes.content} item lg={7} xs={12}>

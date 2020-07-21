@@ -10,6 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 
+import Logo from '../../../../utils/logo';
 import { ADMIN_LOGOUT } from '../../../../quries/AUTH';
 
 const useStyles = makeStyles((theme) => ({
@@ -55,7 +56,7 @@ const Topbar = (props) => {
     return (
         <AppBar {...rest} className={clsx(classes.root, className)}>
             <Toolbar>
-                <img alt="Logo" src="/images/logos/logo.png" />
+                <Logo fillColor="white" strokeColor="white" />
                 <div className={classes.flexGrow} />
                 <Hidden mdDown>
                     <IconButton color="inherit">
