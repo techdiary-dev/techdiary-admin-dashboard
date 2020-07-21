@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import React, { useState, useEffect } from 'react';
+import MarkdownIt from 'markdown-it';
+import MdEditor from 'react-markdown-editor-lite';
+import 'react-markdown-editor-lite/lib/index.css';
 import Toastr from 'toastr';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -19,16 +20,6 @@ import { GET_ARTICLE, UPDATE_ARTICLE } from '../quries/ARTICLE';
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(3)
-    },
-    editor: {
-        height: 150,
-        marginTop: 10,
-        marginBottom: 45
-    },
-    editorError: {
-        '& > .ql-toolbar.ql-snow , & > .ql-container.ql-snow': {
-            borderColor: 'red'
-        }
     },
     overflow: {
         overflow: 'visible'
@@ -98,16 +89,6 @@ const EditArticlePage = ({ match }) => {
                                     color="textSecondary">
                                     Body
                                 </Typography>
-                                <ReactQuill
-                                    className={classes.editor}
-                                    ref={register({ name: 'body' })}
-                                    value={
-                                        getValues('body') || data?.article.body
-                                    }
-                                    onChange={(value) =>
-                                        setValue('body', value)
-                                    }
-                                />
                             </CardContent>
                         </Card>
 
