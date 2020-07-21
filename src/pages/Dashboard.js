@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
-import TotalUser from '../components/Dashboard/TotalUser';
 import TotalArticle from '../components/Dashboard/TotalArticle';
-import TasksProgress from '../components/Dashboard/TasksProgress';
+import TotalUser from '../components/Dashboard/TotalUser';
+import TotalSession from '../components/Dashboard/TotalSession';
 import TotalProfit from '../components/Dashboard/TotalProfit';
 import LatestSales from '../components/Dashboard/LatestSales';
 import UsersByDevice from '../components/Dashboard/UsersByDevice';
-import LatestProducts from '../components/Dashboard/LatestProducts';
 import LatestOrders from '../components/Dashboard/LatestOrders';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,13 +27,13 @@ const DashboardPage = () => {
         <div className={classes.root}>
             <Grid container spacing={4}>
                 <Grid item lg={3} sm={6} xl={3} xs={12}>
-                    <TotalUser />
-                </Grid>
-                <Grid item lg={3} sm={6} xl={3} xs={12}>
                     <TotalArticle />
                 </Grid>
                 <Grid item lg={3} sm={6} xl={3} xs={12}>
-                    <TasksProgress />
+                    <TotalUser />
+                </Grid>
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                    <TotalSession />
                 </Grid>
                 <Grid item lg={3} sm={6} xl={3} xs={12}>
                     <TotalProfit />
@@ -45,10 +44,8 @@ const DashboardPage = () => {
                 <Grid item lg={4} md={6} xl={3} xs={12}>
                     <UsersByDevice />
                 </Grid>
-                <Grid item lg={4} md={6} xl={3} xs={12}>
-                    <LatestProducts />
-                </Grid>
-                <Grid item lg={8} md={12} xl={9} xs={12}>
+
+                <Grid item lg={12} md={12} xl={12} xs={12}>
                     <LatestOrders />
                 </Grid>
             </Grid>

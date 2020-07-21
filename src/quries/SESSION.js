@@ -15,6 +15,14 @@ export const SESSION_LIST = gql`
     }
 `;
 
+export const TOTAL_SESSION = gql`
+    query TOTAL_SESSION($page: Int, $limit: Int) {
+        sessions(pagination: { page: $page, limit: $limit }) {
+            resourceCount
+        }
+    }
+`;
+
 export const DELETE_SESSION = gql`
     mutation DELETE_SESSION($domain: String!, $sub: String!) {
         removeSession(domain: $domain, sub: $sub)
