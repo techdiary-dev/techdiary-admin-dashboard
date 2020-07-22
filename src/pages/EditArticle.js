@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Toastr from 'toastr';
-import { useHistory } from 'react-router-dom';
 import { RHFInput } from 'react-hook-form-input';
+import Select from 'react-select';
 import { useForm } from 'react-hook-form';
 import { useQuery, useMutation } from '@apollo/client';
 import {
@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EditArticlePage = ({ match }) => {
-    const history = useHistory();
     const classes = useStyles();
 
     useEffect(() => {
@@ -58,15 +57,25 @@ const EditArticlePage = ({ match }) => {
         errors,
         getValues,
         setValue,
-        control,
-        reset,
-        watch
+        reset
     } = useForm();
 
-    const { data } = useQuery(GET_ARTICLE, {
+    const { data, loading } = useQuery(GET_ARTICLE, {
         variables: { _id: match.params._id },
         fetchPolicy: 'network-only'
     });
+
+    useEffect(() => {
+        const article = {
+            ...data?.article,
+            tags: data?.article.tags.map(({ _id, tag }) => ({
+                value: _id,
+                label: tag
+            }))
+        };
+
+        reset(article);
+    }, [data, loading]);
 
     const [updateArticle] = useMutation(UPDATE_ARTICLE);
 
@@ -82,16 +91,26 @@ const EditArticlePage = ({ match }) => {
         console.log('handleEditorChange', html, text);
     }
 
-    const onSubmit = async (data) => {
-        try {
-            await updateArticle({
-                variables: { _id: match.params._id, body: data.body }
-            });
-            Toastr.success('Update Successfull');
-            history.push('/articles');
-        } catch (e) {
-            Toastr.error(e.message);
-        }
+    const onSubmit = ({
+        title,
+        body,
+        tags,
+        isPublished,
+        thumbnail,
+        seriesName
+    }) => {
+        updateArticle({
+            variables: {
+                _id: match.params._id,
+                title,
+                body,
+                tags,
+                isPublished,
+                thumbnail,
+                seriesName
+            }
+        });
+        Toastr.success('Article Update Successfull');
     };
 
     return (
@@ -105,7 +124,7 @@ const EditArticlePage = ({ match }) => {
                                 <TextField
                                     variant="outlined"
                                     placeholder="Title"
-                                    label="Title"
+                                    // label="Title"
                                     name="title"
                                     margin="normal"
                                     fullWidth
@@ -121,8 +140,9 @@ const EditArticlePage = ({ match }) => {
                                     className={`${classes.spacingBottom}`}>
                                     Article Body
                                 </Typography>
+
                                 <MdEditor
-                                    value=""
+                                    value={data?.article.body}
                                     style={{ height: '500px' }}
                                     renderHTML={(text) => mdParser.render(text)}
                                     onChange={handleEditorChange}
@@ -134,18 +154,31 @@ const EditArticlePage = ({ match }) => {
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
-                                <Typography>Choose Tags</Typography>
+                                <Typography
+                                    className={`${classes.spacingBottom}`}>
+                                    Tags
+                                </Typography>
+                                <RHFInput
+                                    as={<Select options={data?.article.tags} />}
+                                    rules={{ required: true }}
+                                    name="tags"
+                                    register={register}
+                                    setValue={setValue}
+                                />
                             </CardContent>
                         </Card>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
-                                <Typography>Published Status</Typography>
+                                <Typography
+                                    className={`${classes.spacingBottom}`}>
+                                    Published Status
+                                </Typography>
                                 <RHFInput
                                     type="checkbox"
                                     register={register}
                                     setValue={setValue}
-                                    name="isFeatured"
+                                    name="isPublished"
                                     as={<Switch />}
                                 />
                             </CardContent>
@@ -157,7 +190,7 @@ const EditArticlePage = ({ match }) => {
                                 <TextField
                                     variant="outlined"
                                     placeholder="Series Name"
-                                    label="Series Name"
+                                    // label="Series Name"
                                     name="seriesName"
                                     margin="normal"
                                     fullWidth

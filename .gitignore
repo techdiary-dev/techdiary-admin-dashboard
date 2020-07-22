@@ -13,6 +13,7 @@
 .DS_Store
 /.env
 /.env.local
+/.env.development
 /.env.development.local
 /.env.test.local
 /.env.production.local
@@ -22,4 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 yarn.lock
 pnpm-lock.yaml
+<<<<<<< HEAD
 package-lock.json
+=======
+>>>>>>> 3de5d52543c240f2e142359115272142de93c576

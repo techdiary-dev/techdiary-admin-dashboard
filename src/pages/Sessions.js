@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import Toastr from 'toastr';
 import { makeStyles } from '@material-ui/styles';
@@ -17,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SessionsPage = () => {
-    const history = useHistory();
-
     useEffect(() => {
         document.title = 'Tech Diary | Sessions';
     }, []);

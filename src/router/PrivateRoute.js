@@ -1,17 +1,20 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useQuery } from '@apollo/client';
+import { ME } from '../quries/ME';
 
 const PrivateRoute = (props) => {
     const { layout: Layout, component: Component, ...rest } = props;
-
-    const token = localStorage.getItem('AUTH_TOKEN');
-
+    const { data, loading } = useQuery(ME);
+    // const token = localStorage.getItem('AUTH_TOKEN');
+    console.log(data);
+    if (loading) return <p>Loading</p>;
     return (
         <Route
             {...rest}
             render={(matchProps) =>
-                token ? (
+                data?.getAdmin?.email ? (
                     <Layout>
                         <Component {...matchProps} />
                     </Layout>

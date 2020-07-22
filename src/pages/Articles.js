@@ -26,7 +26,7 @@ const ArticlesPage = () => {
     const { fetchMore } = useQuery(ARTICLE_LIST, {
         errorPolicy: 'all'
     });
-    const [deleteArticle] = useMutation(DELETE_ARTICLE, {
+    const [deleteArticle, { error }] = useMutation(DELETE_ARTICLE, {
         errorPolicy: 'all'
     });
 
@@ -70,15 +70,20 @@ const ArticlesPage = () => {
                 }
                 editable={{
                     onRowDelete: (data) => {
-                        return new Promise((resolve) => {
-                            deleteArticle({
+                        return new Promise(async (resolve, reject) => {
+                            await deleteArticle({
                                 variables: { _id: data._id }
-                            }).then(() => {
+                            });
+                            console.log(error?.message);
+                            if (error?.message.length) {
+                                console.log(error?.message);
+                                return reject();
+                            } else {
                                 resolve();
                                 Toastr.success(
                                     'You have deleted article successfully'
                                 );
-                            });
+                            }
                         });
                     }
                 }}
