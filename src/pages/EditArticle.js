@@ -100,7 +100,7 @@ const EditArticlePage = ({ match }) => {
         seriesName
     }) => {
         try {
-            await updateArticle({
+            const newData = await updateArticle({
                 variables: {
                     _id: match.params._id,
                     data: {
@@ -114,10 +114,10 @@ const EditArticlePage = ({ match }) => {
                 }
             });
             Toastr.success('Article Update Successfull');
+            console.log(newData);
         } catch (e) {
             Toastr.error(e.message);
         }
-        console.log(title, body, tags, isPublished, thumbnail, seriesName);
     };
 
     return (

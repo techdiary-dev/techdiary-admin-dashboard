@@ -65,6 +65,8 @@ export const UPDATE_ARTICLE = gql`
             }
         ) {
             _id
+            title
+            body
         }
     }
 `;
