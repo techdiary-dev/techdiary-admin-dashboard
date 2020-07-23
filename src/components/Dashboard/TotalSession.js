@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
-import { TOTAL_SESSION } from '../../quries/SESSION';
 import PeopleIcon from '@material-ui/icons/People';
+
+import { TOTAL_SESSION } from '../../quries/SESSION';
 
 const useStyles = makeStyles((theme) => ({
     root: {

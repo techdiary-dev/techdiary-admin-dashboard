@@ -1,4 +1,5 @@
 export { default as Dashboard } from './Dashboard';
+export { default as Create } from './Create';
 export { default as Articles } from './Articles';
 export { default as EditArticle } from './EditArticle';
 export { default as Users } from './Users';

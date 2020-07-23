@@ -27,7 +27,8 @@ const ArticlesPage = () => {
         errorPolicy: 'all'
     });
     const [deleteArticle, { error }] = useMutation(DELETE_ARTICLE, {
-        errorPolicy: 'all'
+        errorPolicy: 'all',
+        fetchPolicy: 'no-cache'
     });
 
     const classes = useStyles();
@@ -35,10 +36,28 @@ const ArticlesPage = () => {
     const [state] = useState({
         columns: [
             { title: 'Title', field: 'title' },
-            { title: 'Slug', field: 'slug' },
-            { title: 'Thumbnail', field: 'thumbnail' },
+            {
+                title: 'Thumbnail',
+                field: 'thumbnail',
+                render: (rowData) => (
+                    <img
+                        src={rowData.thumbnail}
+                        style={{ width: '50%', height: 'auto' }}
+                    />
+                )
+            },
             { title: 'Tags', field: 'tags' },
-            { title: 'Author', field: 'author.name' }
+            {
+                title: 'Author',
+                field: 'author.name',
+                render: (rowData) => (
+                    <a
+                        href={`https://www.techdiary.dev/${rowData.author.username}`}
+                        target="_blank">
+                        {rowData.author.name}
+                    </a>
+                )
+            }
         ]
     });
 
@@ -74,15 +93,14 @@ const ArticlesPage = () => {
                             await deleteArticle({
                                 variables: { _id: data._id }
                             });
-                            console.log(error?.message);
+
                             if (error?.message.length) {
-                                console.log(error?.message);
-                                return reject();
+                                Toastr.error(error?.message);
                             } else {
-                                resolve();
                                 Toastr.success(
                                     'You have deleted article successfully'
                                 );
+                                resolve();
                             }
                         });
                     }

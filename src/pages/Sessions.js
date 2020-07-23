@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import Toastr from 'toastr';
+import Moment from 'react-moment';
 import { makeStyles } from '@material-ui/styles';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -33,7 +34,12 @@ const SessionsPage = () => {
         columns: [
             { title: 'Domain', field: 'domain' },
             { title: 'Sub', field: 'sub' },
-            { title: 'Token', field: 'token' }
+            { title: 'Username', field: 'username' },
+            {
+                title: 'CreatedAt',
+                field: 'createdAt',
+                render: (rowData) => <Moment unix>{rowData.createdAt}</Moment>
+            }
         ]
     });
 

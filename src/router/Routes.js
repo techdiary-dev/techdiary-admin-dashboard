@@ -6,6 +6,7 @@ import { Main as MainLayout, Minimal as MinimalLayout } from '../layouts';
 
 import {
     Dashboard,
+    Create,
     Articles,
     EditArticle,
     Users,
@@ -26,6 +27,12 @@ const Routes = () => {
                 exact
                 layout={MainLayout}
                 path="/dashboard"
+            />
+            <PrivateRoute
+                component={Create}
+                exact
+                layout={MainLayout}
+                path="/create"
             />
             <PrivateRoute
                 component={Articles}

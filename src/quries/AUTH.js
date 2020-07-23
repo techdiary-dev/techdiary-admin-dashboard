@@ -15,7 +15,27 @@ export const REGISTER_ADMIN = gql`
                 password: $password
             }
         ) {
-            name
+            _id
+        }
+    }
+`;
+
+export const CREATE_ADMIN = gql`
+    mutation CREATE_ADMIN(
+        $name: String!
+        $username: String!
+        $email: String!
+        $password: String!
+    ) {
+        addAdmin(
+            data: {
+                name: $name
+                username: $username
+                email: $email
+                password: $password
+            }
+        ) {
+            _id
         }
     }
 `;

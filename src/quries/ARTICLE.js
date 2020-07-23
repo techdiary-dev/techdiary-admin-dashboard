@@ -9,12 +9,12 @@ export const ARTICLE_LIST = gql`
             data {
                 _id
                 title
-                slug
                 body
                 thumbnail
                 tags
                 author {
                     name
+                    username
                 }
             }
         }

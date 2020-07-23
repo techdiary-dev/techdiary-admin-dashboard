@@ -9,7 +9,8 @@ export const SESSION_LIST = gql`
             data {
                 sub
                 domain
-                token
+                username
+                createdAt
             }
         }
     }

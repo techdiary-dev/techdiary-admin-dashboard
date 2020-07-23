@@ -68,13 +68,12 @@ const EditArticlePage = ({ match }) => {
     useEffect(() => {
         const article = {
             ...data?.article,
-            tags: data?.article.tags.map(({ _id, tag }) => ({
-                value: _id,
-                label: tag
+            tags: data?.article.tags.map((item, i) => ({
+                value: i,
+                label: item
             }))
         };
-
-        reset(article);
+        reset(data?.article.tags);
     }, [data, loading]);
 
     const [updateArticle] = useMutation(UPDATE_ARTICLE);
@@ -85,10 +84,20 @@ const EditArticlePage = ({ match }) => {
         progressBar: true
     };
 
+    useEffect(() => {
+        // if (query?._id && !localStorage.getItem(`${query?._id}`))
+        reset(data?.article.tags);
+    }, []);
+
+    useEffect(() => {
+        register('body');
+    }, [register]);
+
     const mdParser = new MarkdownIt();
 
     function handleEditorChange({ html, text }) {
         console.log('handleEditorChange', html, text);
+        setValue(text);
     }
 
     const onSubmit = async ({
@@ -103,14 +112,12 @@ const EditArticlePage = ({ match }) => {
             const newData = await updateArticle({
                 variables: {
                     _id: match.params._id,
-                    data: {
-                        title,
-                        body,
-                        tags,
-                        isPublished,
-                        thumbnail,
-                        seriesName
-                    }
+                    title,
+                    body,
+                    tags,
+                    isPublished,
+                    thumbnail,
+                    seriesName
                 }
             });
             Toastr.success('Article Update Successfull');
@@ -147,11 +154,11 @@ const EditArticlePage = ({ match }) => {
                                     className={`${classes.spacingBottom}`}>
                                     Article Body
                                 </Typography>
-
                                 <MdEditor
-                                    value={data?.article.body}
+                                    value={getValues('body')}
                                     style={{ height: '500px' }}
                                     renderHTML={(text) => mdParser.render(text)}
+                                    inputRef={register}
                                     onChange={handleEditorChange}
                                 />
                             </CardContent>

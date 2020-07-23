@@ -180,7 +180,6 @@ const SignInPage = () => {
                     password
                 }
             });
-            localStorage.setItem('AUTH_TOKEN', data.loginAdmin.token);
             Toastr.success('You have successfully signed in');
             history.push('/dashboard');
         } catch (e) {

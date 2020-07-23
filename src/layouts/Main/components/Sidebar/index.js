@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Divider, Drawer } from '@material-ui/core';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import PeopleIcon from '@material-ui/icons/People';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
@@ -44,6 +45,11 @@ const Sidebar = (props) => {
             title: 'Dashboard',
             href: '/dashboard',
             icon: <DashboardIcon />
+        },
+        {
+            title: 'Create',
+            href: '/create',
+            icon: <AddBoxIcon />
         },
         {
             title: 'Articles',
