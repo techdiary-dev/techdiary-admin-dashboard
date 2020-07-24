@@ -11,7 +11,6 @@ import {
     CardContent,
     CardActions,
     Divider,
-    Grid,
     Button,
     TextField,
     Typography
@@ -24,7 +23,7 @@ import { profileSchema } from '../../validationSchema/schema';
 
 const useStyles = makeStyles(() => ({
     errorMsg: {
-        marginTop: 4,
+        marginTop: 6,
         color: 'red'
     }
 }));
@@ -68,75 +67,72 @@ const AccountDetails = (props) => {
     return (
         <Card {...rest}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <CardHeader
-                    subheader="The information can be edited"
-                    title="Profile"
-                />
+                <CardHeader title="Profile" />
                 <Divider />
                 <CardContent>
-                    <Grid container spacing={3}>
-                        <Grid item md={6} xs={12}>
-                            <TextField
-                                fullWidth
-                                label="Name"
-                                margin="dense"
-                                name="name"
-                                error={errors?.name ? true : false}
-                                inputRef={register}
-                                variant="outlined"
-                            />
-                            {errors?.name?.message && (
-                                <Typography
-                                    className={classes.errorMsg}
-                                    color="textSecondary"
-                                    gutterBottom>
-                                    {errors?.name?.message}
-                                </Typography>
-                            )}
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                            <TextField
-                                fullWidth
-                                label="Username"
-                                margin="dense"
-                                name="username"
-                                error={errors?.username ? true : false}
-                                inputRef={register}
-                                variant="outlined"
-                            />
-                            {errors?.username?.message && (
-                                <Typography
-                                    className={classes.errorMsg}
-                                    color="textSecondary"
-                                    gutterBottom>
-                                    {errors?.username?.message}
-                                </Typography>
-                            )}
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                            <TextField
-                                fullWidth
-                                label="Email"
-                                margin="dense"
-                                name="email"
-                                error={errors?.email ? true : false}
-                                inputRef={register}
-                                variant="outlined"
-                            />
-                            {errors?.email?.message && (
-                                <Typography
-                                    className={classes.errorMsg}
-                                    color="textSecondary"
-                                    gutterBottom>
-                                    {errors?.email?.message}
-                                </Typography>
-                            )}
-                        </Grid>
-                    </Grid>
+                    <TextField
+                        fullWidth
+                        label="Name"
+                        margin="dense"
+                        name="name"
+                        error={errors?.name ? true : false}
+                        inputRef={register}
+                        variant="outlined"
+                    />
+                    {errors?.name?.message && (
+                        <Typography
+                            className={classes.errorMsg}
+                            color="textSecondary"
+                            gutterBottom>
+                            {errors?.name?.message}
+                        </Typography>
+                    )}
+
+                    <TextField
+                        fullWidth
+                        label="Username"
+                        margin="dense"
+                        name="username"
+                        error={errors?.username ? true : false}
+                        style={{ marginTop: '1rem' }}
+                        inputRef={register}
+                        variant="outlined"
+                    />
+                    {errors?.username?.message && (
+                        <Typography
+                            className={classes.errorMsg}
+                            color="textSecondary"
+                            gutterBottom>
+                            {errors?.username?.message}
+                        </Typography>
+                    )}
+
+                    <TextField
+                        fullWidth
+                        label="Email"
+                        margin="dense"
+                        name="email"
+                        error={errors?.email ? true : false}
+                        style={{ marginTop: '1rem' }}
+                        inputRef={register}
+                        variant="outlined"
+                    />
+                    {errors?.email?.message && (
+                        <Typography
+                            className={classes.errorMsg}
+                            color="textSecondary"
+                            gutterBottom>
+                            {errors?.email?.message}
+                        </Typography>
+                    )}
                 </CardContent>
                 <Divider />
                 <CardActions>
-                    <Button color="primary" variant="contained" type="submit">
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        type="submit"
+                        fullWidth>
                         Save details
                     </Button>
                 </CardActions>

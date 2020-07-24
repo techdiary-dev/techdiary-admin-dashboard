@@ -75,7 +75,7 @@ const Password = (props) => {
     return (
         <Card {...rest}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <CardHeader subheader="Update Password" />
+                <CardHeader title="Update Password" />
                 <Divider />
                 <CardContent>
                     <TextField
@@ -148,6 +148,7 @@ const Password = (props) => {
                         color="primary"
                         variant="contained"
                         type="submit"
+                        fullWidth
                         disabled={error}>
                         Update
                     </Button>
