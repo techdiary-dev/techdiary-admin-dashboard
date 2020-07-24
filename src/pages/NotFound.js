@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'inline-block',
         maxWidth: '100%',
         width: 560
+    },
+    redirectToHomePage: {
+        marginTop: 50
     }
 }));
 
@@ -43,6 +47,11 @@ const NotFoundPage = () => {
                             className={classes.image}
                             src="/images/undraw_page_not_found_su7k.svg"
                         />
+                        <div className={classes.redirectToHomePage}>
+                            <Typography variant="subtitle2">
+                                Go to <Link to="/">Home Page</Link>
+                            </Typography>
+                        </div>
                     </div>
                 </Grid>
             </Grid>

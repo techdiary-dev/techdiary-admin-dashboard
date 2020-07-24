@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { AppBar, Toolbar } from '@material-ui/core';
 
+import Logo from '../../../../utils/logo';
+
 const useStyles = makeStyles(() => ({
     root: {
         boxShadow: 'none'
@@ -22,7 +24,7 @@ const Topbar = (props) => {
             color="primary"
             position="fixed">
             <Toolbar>
-                <img alt="Logo" src="/images/logos/logo.png" />
+                <Logo fillColor="white" strokeColor="white" />
             </Toolbar>
         </AppBar>
     );
