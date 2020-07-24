@@ -61,7 +61,7 @@ const EditUserPage = ({ match }) => {
             }))
         };
         reset(article);
-    }, [data, loading]);
+    }, [data, loading, reset]);
 
     useEffect(() => {
         register('body');
@@ -121,7 +121,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -137,7 +137,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -153,7 +153,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -169,7 +169,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -185,7 +185,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -201,7 +201,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -217,7 +217,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -233,7 +233,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -249,7 +249,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -265,7 +265,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -281,7 +281,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -297,7 +297,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -313,7 +313,7 @@ const EditUserPage = ({ match }) => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item item xs={12} sm={12} md={12} lg={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>

@@ -45,7 +45,7 @@ const AccountDetails = (props) => {
             ...data?.getAdmin
         };
         reset(getAdminData);
-    }, [data, loading]);
+    }, [data, loading, reset]);
 
     Toastr.options = {
         closeButton: true,

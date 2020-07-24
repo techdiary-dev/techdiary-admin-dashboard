@@ -146,7 +146,6 @@ const CreateAdmin = (props) => {
                         fullWidth
                         margin="dense"
                         error={hasError('username')}
-                        fullWidth
                         helperText={
                             hasError('username')
                                 ? formState.errors.username[0]
@@ -164,7 +163,6 @@ const CreateAdmin = (props) => {
                         fullWidth
                         margin="dense"
                         error={hasError('email')}
-                        fullWidth
                         helperText={
                             hasError('email') ? formState.errors.email[0] : null
                         }

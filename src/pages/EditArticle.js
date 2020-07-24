@@ -67,7 +67,7 @@ const EditArticlePage = ({ match }) => {
             }))
         };
         reset(article);
-    }, [data, loading]);
+    }, [data, loading, reset]);
 
     useEffect(() => {
         register('body');
