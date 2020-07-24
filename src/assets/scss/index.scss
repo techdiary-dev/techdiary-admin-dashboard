@@ -27,3 +27,13 @@ a {
 #root {
     height: 100%;
 }
+
+.custom-loader {
+    height: 100vh;
+    span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
