@@ -182,8 +182,8 @@ const SignInPage = () => {
             });
             Toastr.success('You have successfully signed in');
             history.push('/dashboard');
-        } catch (e) {
-            Toastr.error(e.message);
+        } catch {
+            Toastr.error('Unauthorized');
         }
     };
 

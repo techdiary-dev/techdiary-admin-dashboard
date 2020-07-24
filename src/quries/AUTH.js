@@ -40,6 +40,14 @@ export const CREATE_ADMIN = gql`
     }
 `;
 
+export const UPDATE_ADMIN = gql`
+    mutation UPDATE_ADMIN($name: String, $username: String, $email: String) {
+        updateAdmin(data: { name: $name, username: $username, email: $email }) {
+            _id
+        }
+    }
+`;
+
 export const LOGIN_ADMIN = gql`
     mutation LoginAdmin($identifier: String!, $password: String!) {
         loginAdmin(data: { identifier: $identifier, password: $password }) {
@@ -51,5 +59,13 @@ export const LOGIN_ADMIN = gql`
 export const ADMIN_LOGOUT = gql`
     mutation LOGOUT {
         adminLogout
+    }
+`;
+
+export const CHANGE_PASSWORD = gql`
+    mutation CHANGE_PASSWORD($oldPassword: String!, $newPassword: String!) {
+        changePassword(
+            data: { oldPassword: $oldPassword, newPassword: $newPassword }
+        )
     }
 `;

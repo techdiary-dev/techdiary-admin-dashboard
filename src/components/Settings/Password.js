@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
+import Toastr from 'toastr';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers';
+import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/styles';
 import {
     Card,
@@ -9,11 +12,18 @@ import {
     CardActions,
     Divider,
     Button,
-    TextField
+    TextField,
+    Typography
 } from '@material-ui/core';
 
+import { passwordSchema } from '../../validationSchema/schema';
+import { CHANGE_PASSWORD } from '../../quries/AUTH';
+
 const useStyles = makeStyles(() => ({
-    root: {}
+    errorMsg: {
+        marginTop: 6,
+        color: 'red'
+    }
 }));
 
 const Password = (props) => {
@@ -21,58 +31,124 @@ const Password = (props) => {
 
     const classes = useStyles();
 
-    const [values, setValues] = useState({
-        oldPassword: '',
-        newPassword: '',
-        confirmNewPassword: ''
+    const { register, handleSubmit, getValues, errors } = useForm({
+        resolver: yupResolver(passwordSchema)
     });
 
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value
-        });
+    const [changePassword] = useMutation(CHANGE_PASSWORD);
+
+    Toastr.options = {
+        closeButton: true,
+        newestOnTop: true,
+        progressBar: true
+    };
+
+    const [error, setError] = useState(false);
+
+    const changeHandler = () => {
+        const newPasswordValue = getValues('newPassword');
+        const confirmNewPasswordValue = getValues('confirmNewPassword');
+
+        if (newPasswordValue == '' || confirmNewPasswordValue == '') {
+            setError(false);
+        } else if (newPasswordValue !== confirmNewPasswordValue) {
+            setError(true);
+        } else {
+            setError(false);
+        }
+    };
+
+    const onSubmit = async ({ currentPassword, newPassword }) => {
+        try {
+            await changePassword({
+                variables: {
+                    oldPassword: currentPassword,
+                    newPassword
+                }
+            });
+            Toastr.success('Successfully changed the password');
+        } catch (e) {
+            Toastr.error('Your current password is wrong');
+        }
     };
 
     return (
-        <Card {...rest} className={clsx(classes.root, className)}>
-            <form>
+        <Card {...rest}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <CardHeader subheader="Update Password" />
                 <Divider />
                 <CardContent>
                     <TextField
                         fullWidth
-                        label="Old Password"
-                        name="oldPassword"
-                        onChange={handleChange}
-                        type="oldPassword"
-                        value={values.oldPassword}
+                        label="Current Password"
+                        name="currentPassword"
+                        type="password"
                         variant="outlined"
+                        inputRef={register}
+                        error={errors?.newPassword?.message}
                     />
+                    {errors?.oldPassword?.message && (
+                        <Typography
+                            className={classes.errorMsg}
+                            color="textSecondary"
+                            gutterBottom>
+                            {errors?.oldPassword?.message}
+                        </Typography>
+                    )}
                     <TextField
                         fullWidth
                         label="New Password"
                         name="newPassword"
-                        onChange={handleChange}
                         style={{ marginTop: '1rem' }}
-                        type="newPassword"
-                        value={values.newPassword}
+                        type="password"
                         variant="outlined"
+                        inputRef={register}
+                        onChange={changeHandler}
+                        error={errors?.newPassword?.message}
                     />
+                    {errors?.newPassword?.message && (
+                        <Typography
+                            className={classes.errorMsg}
+                            color="textSecondary"
+                            gutterBottom>
+                            {errors?.newPassword?.message}
+                        </Typography>
+                    )}
                     <TextField
                         fullWidth
                         label="Confirm New Password"
                         name="confirmNewPassword"
-                        onChange={handleChange}
                         style={{ marginTop: '1rem' }}
-                        type="confirmNewPassword"
-                        value={values.confirmNewPassword}
+                        type="password"
                         variant="outlined"
+                        inputRef={register}
+                        onChange={changeHandler}
+                        error={errors?.newPassword?.message}
                     />
+                    {errors?.confirmNewPassword?.message && (
+                        <Typography
+                            className={classes.errorMsg}
+                            color="textSecondary"
+                            gutterBottom>
+                            {errors?.confirmNewPassword?.message}
+                        </Typography>
+                    )}
+                    {error && (
+                        <Typography
+                            className={classes.errorMsg}
+                            color="textSecondary"
+                            gutterBottom>
+                            New password and Confirm new password doesn't match
+                        </Typography>
+                    )}
                 </CardContent>
                 <Divider />
                 <CardActions>
-                    <Button color="primary" variant="outlined">
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        type="submit"
+                        disabled={error}>
                         Update
                     </Button>
                 </CardActions>

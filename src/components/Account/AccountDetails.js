@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from '@apollo/client';
+import Toastr from 'toastr';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers';
+import { useQuery, useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/styles';
 import {
     Card,
@@ -11,13 +13,20 @@ import {
     Divider,
     Grid,
     Button,
-    TextField
+    TextField,
+    Typography
 } from '@material-ui/core';
 
 import { ME } from '../../quries/ME';
+import { UPDATE_ADMIN } from '../../quries/AUTH';
+
+import { profileSchema } from '../../validationSchema/schema';
 
 const useStyles = makeStyles(() => ({
-    root: {}
+    errorMsg: {
+        marginTop: 4,
+        color: 'red'
+    }
 }));
 
 const AccountDetails = (props) => {
@@ -25,24 +34,40 @@ const AccountDetails = (props) => {
 
     const classes = useStyles();
 
-    const { data } = useQuery(ME);
-
-    const [values, setValues] = useState({
-        name: data?.getAdmin.name,
-        username: data?.getAdmin.username,
-        email: data?.getAdmin.email
+    const { register, handleSubmit, errors, reset } = useForm({
+        resolver: yupResolver(profileSchema)
     });
 
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value
+    const { data, loading } = useQuery(ME);
+    const [updateAdmin] = useMutation(UPDATE_ADMIN);
+
+    useEffect(() => {
+        const getAdminData = {
+            ...data?.getAdmin
+        };
+        reset(getAdminData);
+    }, [data, loading]);
+
+    Toastr.options = {
+        closeButton: true,
+        newestOnTop: true,
+        progressBar: true
+    };
+
+    const onSubmit = ({ name, username, email }) => {
+        updateAdmin({
+            variables: {
+                name,
+                username,
+                email
+            }
         });
+        Toastr.success('Update profile successfully');
     };
 
     return (
-        <Card {...rest} className={clsx(classes.root, className)}>
-            <form autoComplete="off" noValidate>
+        <Card {...rest}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <CardHeader
                     subheader="The information can be edited"
                     title="Profile"
@@ -53,47 +78,65 @@ const AccountDetails = (props) => {
                         <Grid item md={6} xs={12}>
                             <TextField
                                 fullWidth
-                                helperText="Please specify the name"
                                 label="Name"
                                 margin="dense"
                                 name="name"
-                                onChange={handleChange}
-                                required
-                                value={values.name}
+                                error={errors?.name ? true : false}
+                                inputRef={register}
                                 variant="outlined"
                             />
+                            {errors?.name?.message && (
+                                <Typography
+                                    className={classes.errorMsg}
+                                    color="textSecondary"
+                                    gutterBottom>
+                                    {errors?.name?.message}
+                                </Typography>
+                            )}
                         </Grid>
                         <Grid item md={6} xs={12}>
                             <TextField
                                 fullWidth
-                                helperText="Please specify the username"
                                 label="Username"
                                 margin="dense"
                                 name="username"
-                                onChange={handleChange}
-                                required
-                                value={values.username}
+                                error={errors?.username ? true : false}
+                                inputRef={register}
                                 variant="outlined"
                             />
+                            {errors?.username?.message && (
+                                <Typography
+                                    className={classes.errorMsg}
+                                    color="textSecondary"
+                                    gutterBottom>
+                                    {errors?.username?.message}
+                                </Typography>
+                            )}
                         </Grid>
-
                         <Grid item md={6} xs={12}>
                             <TextField
                                 fullWidth
-                                label="Email Address"
+                                label="Email"
                                 margin="dense"
                                 name="email"
-                                onChange={handleChange}
-                                required
-                                value={values.email}
+                                error={errors?.email ? true : false}
+                                inputRef={register}
                                 variant="outlined"
                             />
+                            {errors?.email?.message && (
+                                <Typography
+                                    className={classes.errorMsg}
+                                    color="textSecondary"
+                                    gutterBottom>
+                                    {errors?.email?.message}
+                                </Typography>
+                            )}
                         </Grid>
                     </Grid>
                 </CardContent>
                 <Divider />
                 <CardActions>
-                    <Button color="primary" variant="contained">
+                    <Button color="primary" variant="contained" type="submit">
                         Save details
                     </Button>
                 </CardActions>

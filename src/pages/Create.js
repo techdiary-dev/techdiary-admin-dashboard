@@ -131,7 +131,7 @@ const CreatePage = (props) => {
                 touched: {},
                 errors: {}
             });
-            Toastr.success('You have successfully created a admin');
+            Toastr.success('Successfully created a admin');
         } catch (e) {
             Toastr.error(e.message);
         }

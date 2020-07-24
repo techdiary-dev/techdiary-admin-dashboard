@@ -24,6 +24,7 @@ const SessionsPage = () => {
     const { fetchMore } = useQuery(SESSION_LIST, {
         errorPolicy: 'all'
     });
+
     const [deleteSessions] = useMutation(DELETE_SESSION, {
         errorPolicy: 'all'
     });
@@ -79,9 +80,7 @@ const SessionsPage = () => {
                                 }
                             }).then(() => {
                                 resolve();
-                                Toastr.success(
-                                    'You have removed session successfully'
-                                );
+                                Toastr.success('Session removed successfully');
                             });
                         });
                     }

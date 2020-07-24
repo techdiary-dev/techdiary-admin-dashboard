@@ -120,7 +120,7 @@ const EditArticlePage = ({ match }) => {
                     seriesName
                 }
             });
-            Toastr.success('Article Update Successfull');
+            Toastr.success('Successfully update the article');
             console.log(newData);
         } catch (e) {
             Toastr.error(e.message);
