@@ -87,7 +87,6 @@ const AccountDetails = (props) => {
                             {errors?.name?.message}
                         </Typography>
                     )}
-
                     <TextField
                         fullWidth
                         label="Username"
@@ -106,7 +105,6 @@ const AccountDetails = (props) => {
                             {errors?.username?.message}
                         </Typography>
                     )}
-
                     <TextField
                         fullWidth
                         label="Email"

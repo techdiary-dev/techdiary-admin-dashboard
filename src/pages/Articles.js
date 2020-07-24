@@ -42,6 +42,7 @@ const ArticlesPage = () => {
                 render: (rowData) => (
                     <img
                         src={rowData.thumbnail}
+                        alt="Thumbnail"
                         style={{ width: '50%', height: 'auto' }}
                     />
                 )
@@ -53,7 +54,8 @@ const ArticlesPage = () => {
                 render: (rowData) => (
                     <a
                         href={`https://www.techdiary.dev/${rowData.author.username}`}
-                        target="_blank">
+                        target="_blank"
+                        rel="noopener noreferrer">
                         {rowData.author.name}
                     </a>
                 )

@@ -8,15 +8,15 @@ const Logo = ({ fillColor, strokeColor }) => {
                     <path d="M0 0h141v23H0z"></path>
                 </clipPath>
             </defs>
-            <g data-name="Artboard \u2013 1" clip-path="url(#logo-dark_svg__a)">
+            <g data-name="Artboard \u2013 1" clipPath="url(#logo-dark_svg__a)">
                 <text
                     data-name="Logo"
                     transform="translate(31 20)"
                     fill={fillColor}
                     stroke="rgba(0,0,0,0)"
-                    font-size="18"
-                    font-family="Space Mono, monospace"
-                    font-weight="700">
+                    fontSize="18"
+                    fontFamily="Space Mono, monospace"
+                    fontWeight="700">
                     <tspan x="0" y="0">
                         TECH DIARY
                     </tspan>
@@ -24,9 +24,9 @@ const Logo = ({ fillColor, strokeColor }) => {
                 <g
                     fill="none"
                     stroke={strokeColor}
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2">
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2">
                     <path data-name="Path 11" d="M17 9h1a4 4 0 010 8h-1"></path>
                     <path
                         data-name="Path 12"

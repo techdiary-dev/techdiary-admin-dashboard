@@ -37,6 +37,7 @@ const UsersPage = () => {
                 render: (rowData) => (
                     <img
                         src={rowData.profilePhoto}
+                        alt="Profile Avatar"
                         style={{ width: 50, borderRadius: '50%' }}
                     />
                 )
@@ -47,7 +48,8 @@ const UsersPage = () => {
                 render: (rowData) => (
                     <a
                         href={`https://www.techdiary.dev/${rowData.username}`}
-                        target="_blank">
+                        target="_blank"
+                        rel="noopener noreferrer">
                         {rowData.name}
                     </a>
                 )

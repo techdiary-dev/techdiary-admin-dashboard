@@ -174,7 +174,7 @@ const SignInPage = () => {
         e.preventDefault();
 
         try {
-            const { data } = await loginAdmin({
+            await loginAdmin({
                 variables: {
                     identifier,
                     password

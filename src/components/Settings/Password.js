@@ -49,7 +49,7 @@ const Password = (props) => {
         const newPasswordValue = getValues('newPassword');
         const confirmNewPasswordValue = getValues('confirmNewPassword');
 
-        if (newPasswordValue == '' || confirmNewPasswordValue == '') {
+        if (newPasswordValue === '' || confirmNewPasswordValue === '') {
             setError(false);
         } else if (newPasswordValue !== confirmNewPasswordValue) {
             setError(true);
