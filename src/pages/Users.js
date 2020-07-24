@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import Toastr from 'toastr';
 import { makeStyles } from '@material-ui/styles';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import { USER_LIST } from '../quries/USER';
 
@@ -117,9 +117,9 @@ const UsersPage = () => {
                 actions={[
                     {
                         icon: 'edit',
-                        tooltip: 'Edit User'
-                        // onClick: (_, { _id }) =>
-                        //     history.push('/articles/edit/' + _id)
+                        tooltip: 'Edit User',
+                        onClick: (_, { _id }) =>
+                            history.push('/users/edit/' + _id)
                     }
                 ]}
             />

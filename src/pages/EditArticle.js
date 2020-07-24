@@ -51,14 +51,7 @@ const EditArticlePage = ({ match }) => {
         document.title = 'Tech Diary | Edit Article';
     }, []);
 
-    const {
-        register,
-        handleSubmit,
-        errors,
-        getValues,
-        setValue,
-        reset
-    } = useForm();
+    const { register, handleSubmit, getValues, setValue, reset } = useForm();
 
     const { data, loading } = useQuery(GET_ARTICLE, {
         variables: { _id: match.params._id },
@@ -73,8 +66,12 @@ const EditArticlePage = ({ match }) => {
                 label: item
             }))
         };
-        reset(data?.article.tags);
+        reset(article);
     }, [data, loading]);
+
+    useEffect(() => {
+        register('body');
+    }, [register]);
 
     const [updateArticle] = useMutation(UPDATE_ARTICLE);
 
@@ -84,21 +81,7 @@ const EditArticlePage = ({ match }) => {
         progressBar: true
     };
 
-    useEffect(() => {
-        // if (query?._id && !localStorage.getItem(`${query?._id}`))
-        reset(data?.article.tags);
-    }, []);
-
-    useEffect(() => {
-        register('body');
-    }, [register]);
-
     const mdParser = new MarkdownIt();
-
-    function handleEditorChange({ html, text }) {
-        console.log('handleEditorChange', html, text);
-        setValue(text);
-    }
 
     const onSubmit = async ({
         title,
@@ -138,7 +121,6 @@ const EditArticlePage = ({ match }) => {
                                 <TextField
                                     variant="outlined"
                                     placeholder="Title"
-                                    // label="Title"
                                     name="title"
                                     margin="normal"
                                     fullWidth
@@ -158,8 +140,15 @@ const EditArticlePage = ({ match }) => {
                                     value={getValues('body')}
                                     style={{ height: '500px' }}
                                     renderHTML={(text) => mdParser.render(text)}
+                                    config={{
+                                        view: {
+                                            html: false,
+                                            menu: true,
+                                            md: true
+                                        }
+                                    }}
                                     inputRef={register}
-                                    onChange={handleEditorChange}
+                                    onChange={(body) => setValue('body', body)}
                                 />
                             </CardContent>
                         </Card>
@@ -204,7 +193,6 @@ const EditArticlePage = ({ match }) => {
                                 <TextField
                                     variant="outlined"
                                     placeholder="Series Name"
-                                    // label="Series Name"
                                     name="seriesName"
                                     margin="normal"
                                     fullWidth

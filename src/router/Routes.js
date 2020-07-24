@@ -10,6 +10,7 @@ import {
     Articles,
     EditArticle,
     Users,
+    EditUser,
     Sessions,
     Account,
     Settings,
@@ -51,6 +52,12 @@ const Routes = () => {
                 exact
                 layout={MainLayout}
                 path="/users"
+            />
+            <PrivateRoute
+                component={EditUser}
+                exact
+                layout={MainLayout}
+                path="/users/edit/:_id"
             />
             <PrivateRoute
                 component={Sessions}
