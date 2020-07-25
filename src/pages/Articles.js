@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import Toastr from 'toastr';
@@ -17,6 +17,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ArticlesPage = () => {
+    const tableRef = createRef();
+
     const history = useHistory();
 
     useEffect(() => {
@@ -74,6 +76,9 @@ const ArticlesPage = () => {
             <MaterialTable
                 title="Articles"
                 columns={state.columns}
+                options={{
+                    search: false
+                }}
                 data={(query) =>
                     new Promise(async (resolve) => {
                         const data = await fetchMore({
@@ -116,6 +121,13 @@ const ArticlesPage = () => {
                         tooltip: 'Edit Article',
                         onClick: (_, { _id }) =>
                             history.push('/articles/edit/' + _id)
+                    },
+                    {
+                        icon: 'refresh',
+                        tooltip: 'Refresh',
+                        isFreeAction: true,
+                        onClick: () =>
+                            tableRef.current && tableRef.current.onQueryChange()
                     }
                 ]}
             />

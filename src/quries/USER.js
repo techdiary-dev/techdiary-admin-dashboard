@@ -12,22 +12,12 @@ export const USER_LIST = gql`
                 username
                 email
                 profilePhoto
-                githubUID
                 education
                 designation
                 location
                 bio
-                links {
-                    text
-                    link
-                }
-                workInfo {
-                    name
-                    designation
-                    startTime
-                    endTime
-                }
                 skills
+                githubUID
             }
         }
     }
@@ -70,6 +60,7 @@ export const USER_PROFILE = gql`
 
 export const UPDATE_PROFILE = gql`
     mutation UPDATE_PROFILE(
+        $_id: ID!
         $name: String
         $username: String
         $email: String
@@ -81,7 +72,8 @@ export const UPDATE_PROFILE = gql`
         $skills: [String!]
         $workInfo: [WorkInfoInput!]
     ) {
-        updateProfile(
+        updateUserByAdmin(
+            userId: $_id
             data: {
                 name: $name
                 username: $username

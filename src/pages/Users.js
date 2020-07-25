@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import Toastr from 'toastr';
@@ -17,6 +17,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UsersPage = () => {
+    const tableRef = createRef();
+
     const history = useHistory();
 
     useEffect(() => {
@@ -54,20 +56,14 @@ const UsersPage = () => {
                     </a>
                 )
             },
-            { title: 'Email', field: 'email' },
             { title: 'Username', field: 'username' },
-            { title: 'GitHub UID', field: 'githubUID' },
+            { title: 'Email', field: 'email' },
             { title: 'Education', field: 'education' },
             { title: 'Designation', field: 'designation' },
             { title: 'Location', field: 'location' },
             { title: 'Bio', field: 'bio' },
-            { title: 'Links Text', field: 'links.text' },
-            { title: 'Links Link', field: 'links.link' },
-            { title: 'Work Info Name', field: 'workInfo.name' },
-            { title: 'Work Info Designation', field: 'workInfo.designation' },
-            { title: 'Work Info Start Time', field: 'workInfo.startTime' },
-            { title: 'Work Info End Time', field: 'workInfo.endTime' },
-            { title: 'Skills', field: 'skills' }
+            { title: 'Skills', field: 'skills' },
+            { title: 'GitHub UID', field: 'githubUID' }
         ]
     });
 
@@ -82,6 +78,9 @@ const UsersPage = () => {
             <MaterialTable
                 title="Users"
                 columns={state.columns}
+                options={{
+                    search: false
+                }}
                 data={(query) =>
                     new Promise(async (resolve) => {
                         const data = await fetchMore({
@@ -120,8 +119,15 @@ const UsersPage = () => {
                     {
                         icon: 'edit',
                         tooltip: 'Edit User',
-                        onClick: (_, { username }) =>
-                            history.push('/users/edit/' + username)
+                        onClick: (_, { username, _id }) =>
+                            history.push(`/users/edit/${username}/${_id}`)
+                    },
+                    {
+                        icon: 'refresh',
+                        tooltip: 'Refresh',
+                        isFreeAction: true,
+                        onClick: () =>
+                            tableRef.current && tableRef.current.onQueryChange()
                     }
                 ]}
             />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import Toastr from 'toastr';
@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SessionsPage = () => {
+    const tableRef = createRef();
+
     const history = useHistory();
 
     useEffect(() => {
@@ -37,8 +39,8 @@ const SessionsPage = () => {
     const [state] = useState({
         columns: [
             { title: 'Domain', field: 'domain' },
-            { title: 'Sub', field: 'sub' },
             { title: 'Username', field: 'username' },
+            { title: 'Sub', field: 'sub' },
             {
                 title: 'CreatedAt',
                 field: 'createdAt',
@@ -58,6 +60,9 @@ const SessionsPage = () => {
             <MaterialTable
                 title="Sessions"
                 columns={state.columns}
+                options={{
+                    search: false
+                }}
                 data={(query) =>
                     new Promise(async (resolve) => {
                         const data = await fetchMore({
@@ -97,6 +102,15 @@ const SessionsPage = () => {
                         });
                     }
                 }}
+                actions={[
+                    {
+                        icon: 'refresh',
+                        tooltip: 'Refresh',
+                        isFreeAction: true,
+                        onClick: () =>
+                            tableRef.current && tableRef.current.onQueryChange()
+                    }
+                ]}
             />
         </div>
     );

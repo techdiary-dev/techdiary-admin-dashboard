@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Toastr from 'toastr';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useQuery, useMutation } from '@apollo/client';
-import 'date-fns';
 
 import {
     Card,
@@ -47,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EditUserPage = ({
     match: {
-        params: { username }
+        params: { username, _id }
     }
 }) => {
     const classes = useStyles();
@@ -90,8 +89,6 @@ const EditUserPage = ({
         fetchPolicy: 'network-only'
     });
 
-    console.log(data);
-
     useEffect(() => {
         const profile = {
             ...data?.profile
@@ -119,9 +116,11 @@ const EditUserPage = ({
         skills,
         workInfo
     }) => {
+        console.log(username, _id);
         try {
             await updateUserProfile({
                 variables: {
+                    _id,
                     name,
                     username,
                     email,
@@ -135,18 +134,6 @@ const EditUserPage = ({
                 }
             });
             Toastr.success('Successfully update user profile');
-            console.log(
-                name,
-                username,
-                email,
-                education,
-                designation,
-                location,
-                bio,
-                links,
-                skills,
-                workInfo
-            );
         } catch (e) {
             Toastr.error(e.networkError.result.errors[0].message);
         }

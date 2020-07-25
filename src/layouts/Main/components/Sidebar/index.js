@@ -57,6 +57,11 @@ const Sidebar = (props) => {
             icon: <MenuBookIcon />
         },
         {
+            title: 'Admins',
+            href: '/Admins',
+            icon: <PeopleIcon />
+        },
+        {
             title: 'Users',
             href: '/users',
             icon: <PeopleIcon />
