@@ -116,7 +116,9 @@ const EditUserPage = ({
         skills,
         workInfo
     }) => {
-        console.log(username, _id);
+        if (!skills) skills = [];
+        if (!links) links = [];
+        if (!workInfo) workInfo = [];
         try {
             await updateUserProfile({
                 variables: {
