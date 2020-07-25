@@ -84,6 +84,7 @@ const Password = (props) => {
                         name="currentPassword"
                         type="password"
                         variant="outlined"
+                        margin="dense"
                         inputRef={register}
                         error={errors?.newPassword?.message}
                     />
@@ -102,6 +103,7 @@ const Password = (props) => {
                         style={{ marginTop: '1rem' }}
                         type="password"
                         variant="outlined"
+                        margin="dense"
                         inputRef={register}
                         onChange={changeHandler}
                         error={errors?.newPassword?.message}
@@ -121,6 +123,7 @@ const Password = (props) => {
                         style={{ marginTop: '1rem' }}
                         type="password"
                         variant="outlined"
+                        margin="dense"
                         inputRef={register}
                         onChange={changeHandler}
                         error={errors?.newPassword?.message}

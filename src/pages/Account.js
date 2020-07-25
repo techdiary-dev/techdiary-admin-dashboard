@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
 import AccountDetails from '../components/Account/AccountDetails';
+import Password from '../components/Account/Password';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,6 +23,9 @@ const AccountPage = () => {
             <Grid container spacing={4}>
                 <Grid item md={5} xs={12}>
                     <AccountDetails />
+                </Grid>
+                <Grid item md={5} xs={12}>
+                    <Password />
                 </Grid>
             </Grid>
         </div>

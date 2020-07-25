@@ -71,7 +71,7 @@ const AccountDetails = (props) => {
     return (
         <Card {...rest}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <CardHeader title="Profile" />
+                <CardHeader title="Profile Information" />
                 <Divider />
                 <CardContent>
                     <TextField
