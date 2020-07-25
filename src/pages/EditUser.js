@@ -1,18 +1,25 @@
 import React, { useEffect } from 'react';
 import Toastr from 'toastr';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { useQuery, useMutation } from '@apollo/client';
+import 'date-fns';
+
 import {
     Card,
     Grid,
     Button,
     CardContent,
+    CardActions,
     TextField,
     makeStyles,
-    Typography
+    Typography,
+    CardHeader,
+    Divider
 } from '@material-ui/core';
 
-import { GET_ARTICLE, UPDATE_ARTICLE } from '../quries/ARTICLE';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+import { USER_PROFILE, UPDATE_PROFILE } from '../quries/USER';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,36 +45,61 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const EditUserPage = ({ match }) => {
+const EditUserPage = ({
+    match: {
+        params: { username }
+    }
+}) => {
     const classes = useStyles();
 
     useEffect(() => {
         document.title = 'Tech Diary | Edit User';
     }, []);
 
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, control } = useForm();
 
-    const { data, loading } = useQuery(GET_ARTICLE, {
-        variables: { _id: match.params._id },
+    const {
+        fields: linkFields,
+        append: appendLink,
+        remove: removeLink
+    } = useFieldArray({
+        control,
+        name: 'links'
+    });
+
+    const {
+        fields: workInfoFileds,
+        append: appendWorkInfo,
+        remove: removeWorkInfo
+    } = useFieldArray({
+        control,
+        name: 'workInfo'
+    });
+
+    const {
+        fields: skillFields,
+        append: appendSkill,
+        remove: removeSkill
+    } = useFieldArray({
+        control,
+        name: 'skills'
+    });
+
+    const { data, loading } = useQuery(USER_PROFILE, {
+        variables: { username },
         fetchPolicy: 'network-only'
     });
 
+    console.log(data);
+
     useEffect(() => {
-        const article = {
-            ...data?.article,
-            tags: data?.article.tags.map((item, i) => ({
-                value: i,
-                label: item
-            }))
+        const profile = {
+            ...data?.profile
         };
-        reset(article);
+        reset(profile);
     }, [data, loading, reset]);
 
-    useEffect(() => {
-        register('body');
-    }, [register]);
-
-    const [updateArticle] = useMutation(UPDATE_ARTICLE);
+    const [updateUserProfile] = useMutation(UPDATE_PROFILE);
 
     Toastr.options = {
         closeButton: true,
@@ -76,27 +108,45 @@ const EditUserPage = ({ match }) => {
     };
 
     const onSubmit = async ({
-        title,
-        body,
-        tags,
-        isPublished,
-        thumbnail,
-        seriesName
+        name,
+        username,
+        email,
+        education,
+        designation,
+        location,
+        bio,
+        links,
+        skills,
+        workInfo
     }) => {
         try {
-            const newData = await updateArticle({
+            await updateUserProfile({
                 variables: {
-                    _id: match.params._id,
-                    title,
-                    body,
-                    tags,
-                    isPublished,
-                    thumbnail,
-                    seriesName
+                    name,
+                    username,
+                    email,
+                    education,
+                    designation,
+                    location,
+                    bio,
+                    links,
+                    skills,
+                    workInfo
                 }
             });
-            Toastr.success('Successfully update the user');
-            console.log(newData);
+            Toastr.success('Successfully update user profile');
+            console.log(
+                name,
+                username,
+                email,
+                education,
+                designation,
+                location,
+                bio,
+                links,
+                skills,
+                workInfo
+            );
         } catch (e) {
             Toastr.error(e.networkError.result.errors[0].message);
         }
@@ -105,7 +155,7 @@ const EditUserPage = ({ match }) => {
     return (
         <div className={classes.root}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} className={classes.spacingBottom}>
                     <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card className={`${classes.overflow}`}>
                             <CardContent>
@@ -114,215 +164,103 @@ const EditUserPage = ({ match }) => {
                                     variant="outlined"
                                     placeholder="Name"
                                     name="name"
-                                    margin="normal"
+                                    margin="dense"
                                     fullWidth
                                     inputRef={register}
                                 />
                             </CardContent>
                         </Card>
                     </Grid>
+
                     <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
-                            <CardContent>
-                                <Typography>Email</Typography>
-                                <TextField
-                                    variant="outlined"
-                                    placeholder="Email"
-                                    name="email"
-                                    margin="normal"
-                                    fullWidth
-                                    inputRef={register}
-                                />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
+                        <Card className={`${classes.overflow}`}>
                             <CardContent>
                                 <Typography>Username</Typography>
                                 <TextField
                                     variant="outlined"
                                     placeholder="Username"
                                     name="username"
-                                    margin="normal"
+                                    margin="dense"
                                     fullWidth
                                     inputRef={register}
                                 />
                             </CardContent>
                         </Card>
                     </Grid>
+
                     <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
+                        <Card className={`${classes.overflow}`}>
                             <CardContent>
-                                <Typography>Education</Typography>
+                                <Typography>Email</Typography>
                                 <TextField
                                     variant="outlined"
-                                    placeholder="Education"
-                                    name="education"
-                                    margin="normal"
+                                    placeholder="Email"
+                                    name="email"
+                                    margin="dense"
                                     fullWidth
                                     inputRef={register}
                                 />
                             </CardContent>
                         </Card>
                     </Grid>
+
                     <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
-                            <CardContent>
-                                <Typography>Designation</Typography>
-                                <TextField
-                                    variant="outlined"
-                                    placeholder="Designation"
-                                    name="designation"
-                                    margin="normal"
-                                    fullWidth
-                                    inputRef={register}
-                                />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
+                        <Card className={`${classes.overflow}`}>
                             <CardContent>
                                 <Typography>Location</Typography>
                                 <TextField
                                     variant="outlined"
                                     placeholder="Location"
                                     name="location"
-                                    margin="normal"
+                                    margin="dense"
                                     fullWidth
                                     inputRef={register}
                                 />
                             </CardContent>
                         </Card>
                     </Grid>
+
                     <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
+                        <Card className={`${classes.overflow}`}>
+                            <CardContent>
+                                <Typography>Education</Typography>
+                                <TextField
+                                    variant="outlined"
+                                    placeholder="Education"
+                                    name="education"
+                                    margin="dense"
+                                    fullWidth
+                                    inputRef={register}
+                                />
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
+                        <Card className={`${classes.overflow}`}>
+                            <CardContent>
+                                <Typography>Designation</Typography>
+                                <TextField
+                                    variant="outlined"
+                                    placeholder="Designation"
+                                    name="designation"
+                                    margin="dense"
+                                    fullWidth
+                                    inputRef={register}
+                                />
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
+                        <Card className={`${classes.overflow}`}>
                             <CardContent>
                                 <Typography>Bio</Typography>
                                 <TextField
                                     variant="outlined"
                                     placeholder="Bio"
                                     name="bio"
-                                    margin="normal"
-                                    fullWidth
-                                    inputRef={register}
-                                />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
-                            <CardContent>
-                                <Typography>Links Text</Typography>
-                                <TextField
-                                    variant="outlined"
-                                    placeholder="Links Text"
-                                    name="linksText"
-                                    margin="normal"
-                                    fullWidth
-                                    inputRef={register}
-                                />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
-                            <CardContent>
-                                <Typography>Links Link</Typography>
-                                <TextField
-                                    variant="outlined"
-                                    placeholder="Links Link"
-                                    name="linksLink"
-                                    margin="normal"
-                                    fullWidth
-                                    inputRef={register}
-                                />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
-                            <CardContent>
-                                <Typography>Work Info Name</Typography>
-                                <TextField
-                                    variant="outlined"
-                                    placeholder="Work Info Name"
-                                    name="workInfoName"
-                                    margin="normal"
-                                    fullWidth
-                                    inputRef={register}
-                                />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
-                            <CardContent>
-                                <Typography>Work Info Designation</Typography>
-                                <TextField
-                                    variant="outlined"
-                                    placeholder="Work Info Designation"
-                                    name="workInfoDesignation"
-                                    margin="normal"
-                                    fullWidth
-                                    inputRef={register}
-                                />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
-                            <CardContent>
-                                <Typography>Work Info Start Time</Typography>
-                                <TextField
-                                    variant="outlined"
-                                    placeholder="Work Info Start Time"
-                                    name="workInfoStartTime"
-                                    margin="normal"
-                                    fullWidth
-                                    inputRef={register}
-                                />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
-                            <CardContent>
-                                <Typography>Work Info End Time</Typography>
-                                <TextField
-                                    variant="outlined"
-                                    placeholder="Work Info End Time"
-                                    name="workInfoEndTime"
-                                    margin="normal"
-                                    fullWidth
-                                    inputRef={register}
-                                />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={6}>
-                        <Card
-                            className={`${classes.overflow} ${classes.spacingBottom}`}>
-                            <CardContent>
-                                <Typography>Skills</Typography>
-                                <TextField
-                                    variant="outlined"
-                                    placeholder="Skills"
-                                    name="skills"
-                                    margin="normal"
+                                    margin="dense"
                                     fullWidth
                                     inputRef={register}
                                 />
@@ -330,15 +268,272 @@ const EditUserPage = ({ match }) => {
                         </Card>
                     </Grid>
                 </Grid>
-                <div className={classes.spacingBottom}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        className={classes.spacingRight}>
-                        Update User
-                    </Button>
-                </div>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={12} md={12} lg={6}>
+                        <Card className={`${classes.overflow}`}>
+                            <CardHeader title="Website" />
+                            <Divider />
+                            <Grid>
+                                {linkFields.map((item, index) => {
+                                    return (
+                                        <div key={item.id}>
+                                            <Grid
+                                                item
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                lg={12}>
+                                                <CardContent>
+                                                    <Typography>
+                                                        Text
+                                                    </Typography>
+                                                    <TextField
+                                                        variant="outlined"
+                                                        name={`links[${index}].text`}
+                                                        placeholder="Text"
+                                                        margin="dense"
+                                                        fullWidth
+                                                        defaultValue={item.text} // make sure to set up defaultValue
+                                                        inputRef={register()}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+
+                                            <Grid
+                                                item
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                lg={12}>
+                                                <CardContent>
+                                                    <Typography>
+                                                        Link
+                                                    </Typography>
+                                                    <TextField
+                                                        variant="outlined"
+                                                        name={`links[${index}].link`}
+                                                        placeholder="Link"
+                                                        margin="dense"
+                                                        fullWidth
+                                                        defaultValue={item.link} // make sure to set up defaultValue
+                                                        inputRef={register()}
+                                                    />
+                                                    <div
+                                                        onClick={() =>
+                                                            removeLink(index)
+                                                        }>
+                                                        <DeleteIcon />
+                                                    </div>
+                                                </CardContent>
+                                            </Grid>
+                                        </div>
+                                    );
+                                })}
+                                <CardActions>
+                                    <Button
+                                        color="primary"
+                                        variant="contained"
+                                        onClick={() =>
+                                            appendLink({
+                                                text: '',
+                                                link: ''
+                                            })
+                                        }>
+                                        ADD
+                                    </Button>
+                                </CardActions>
+                            </Grid>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} sm={12} md={12} lg={4}>
+                        <Card className={`${classes.overflow}`}>
+                            <CardHeader title="Workspace Information" />
+                            <Divider />
+                            <Grid>
+                                {workInfoFileds.map((item, index) => {
+                                    return (
+                                        <div key={item.id}>
+                                            <Grid
+                                                item
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                lg={12}>
+                                                <CardContent>
+                                                    <Typography>
+                                                        Name
+                                                    </Typography>
+                                                    <TextField
+                                                        variant="outlined"
+                                                        name={`workInfo[${index}].name`}
+                                                        placeholder="Name"
+                                                        margin="dense"
+                                                        fullWidth
+                                                        defaultValue={item.name} // make sure to set up defaultValue
+                                                        inputRef={register()}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+
+                                            <Grid
+                                                item
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                lg={12}>
+                                                <CardContent>
+                                                    <Typography>
+                                                        Designation
+                                                    </Typography>
+                                                    <TextField
+                                                        variant="outlined"
+                                                        name={`workInfo[${index}].designation`}
+                                                        placeholder="Designation"
+                                                        margin="dense"
+                                                        fullWidth
+                                                        defaultValue={
+                                                            item.designation
+                                                        } // make sure to set up defaultValue
+                                                        inputRef={register()}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+
+                                            <Grid
+                                                item
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                lg={12}>
+                                                <CardContent>
+                                                    <Typography>
+                                                        Start Time
+                                                    </Typography>
+                                                    <TextField
+                                                        variant="outlined"
+                                                        margin="dense"
+                                                        type="date"
+                                                        defaultValue={
+                                                            item.startTime
+                                                        }
+                                                        name={`workInfo[${index}].startTime`}
+                                                        inputRef={register()}
+                                                    />
+                                                </CardContent>
+                                            </Grid>
+
+                                            <Grid
+                                                item
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                lg={12}>
+                                                <CardContent>
+                                                    <Typography>
+                                                        End Time
+                                                    </Typography>
+                                                    <TextField
+                                                        variant="outlined"
+                                                        margin="dense"
+                                                        type="date"
+                                                        defaultValue={
+                                                            item.endTime
+                                                        }
+                                                        name={`workInfo[${index}].endTime`}
+                                                        inputRef={register()}
+                                                    />
+                                                    <div
+                                                        onClick={() =>
+                                                            removeWorkInfo(
+                                                                index
+                                                            )
+                                                        }>
+                                                        <DeleteIcon />
+                                                    </div>
+                                                </CardContent>
+                                            </Grid>
+                                        </div>
+                                    );
+                                })}
+                                <CardActions>
+                                    <Button
+                                        color="primary"
+                                        variant="contained"
+                                        onClick={() =>
+                                            appendWorkInfo({
+                                                text: '',
+                                                designation: '',
+                                                startTime: '',
+                                                endTime: ''
+                                            })
+                                        }>
+                                        ADD
+                                    </Button>
+                                </CardActions>
+                            </Grid>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6} md={4} lg={2}>
+                        <Card className={`${classes.overflow}`}>
+                            <CardHeader title="Skills" />
+                            <Divider />
+                            <Grid>
+                                {skillFields.map((item, index) => {
+                                    return (
+                                        <div key={item.id}>
+                                            <Grid
+                                                item
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                lg={12}>
+                                                <CardContent>
+                                                    <TextField
+                                                        variant="outlined"
+                                                        name={`skills[${index}]`}
+                                                        placeholder="Skills"
+                                                        margin="dense"
+                                                        fullWidth
+                                                        defaultValue={
+                                                            item.value
+                                                        } // make sure to set up defaultValue
+                                                        inputRef={register()}
+                                                    />
+                                                    <div
+                                                        onClick={() =>
+                                                            removeSkill(index)
+                                                        }>
+                                                        <DeleteIcon />
+                                                    </div>
+                                                </CardContent>
+                                            </Grid>
+                                        </div>
+                                    );
+                                })}
+                                <CardActions>
+                                    <Button
+                                        color="primary"
+                                        variant="contained"
+                                        onClick={() =>
+                                            appendSkill({ value: '' })
+                                        }>
+                                        ADD
+                                    </Button>
+                                </CardActions>
+                            </Grid>
+                        </Card>
+                    </Grid>
+                </Grid>
+
+                <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    className={classes.spacingTop}>
+                    Update User
+                </Button>
             </form>
         </div>
     );

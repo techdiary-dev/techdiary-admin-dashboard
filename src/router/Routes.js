@@ -57,7 +57,7 @@ const Routes = () => {
                 component={EditUser}
                 exact
                 layout={MainLayout}
-                path="/users/edit/:_id"
+                path="/users/edit/:username"
             />
             <PrivateRoute
                 component={Sessions}

@@ -1,29 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
 import { Route, Redirect } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import Loader from 'react-loader-spinner';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 import { ME } from '../quries/ME';
+
+const useStyles = makeStyles((theme) => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff'
+    }
+}));
 
 const PrivateRoute = (props) => {
     const { layout: Layout, component: Component, ...rest } = props;
     const { data, loading } = useQuery(ME);
 
+    const classes = useStyles();
+
     if (loading)
         return (
-            <div className="custom-loader">
-                <span>
-                    <Loader
-                        type="ThreeDots"
-                        color="#00BFFF"
-                        height={100}
-                        width={100}
-                        timeout={3000}
-                    />
-                </span>
-            </div>
+            <Backdrop open={true} className={classes.backdrop}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
         );
 
     return (

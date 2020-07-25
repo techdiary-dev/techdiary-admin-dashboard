@@ -120,8 +120,8 @@ const UsersPage = () => {
                     {
                         icon: 'edit',
                         tooltip: 'Edit User',
-                        onClick: (_, { _id }) =>
-                            history.push('/users/edit/' + _id)
+                        onClick: (_, { username }) =>
+                            history.push('/users/edit/' + username)
                     }
                 ]}
             />
