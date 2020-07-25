@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
@@ -51,12 +51,14 @@ const EditArticlePage = ({ match }) => {
         document.title = 'Tech Diary | Edit Article';
     }, []);
 
-    const { register, handleSubmit, getValues, setValue, reset } = useForm();
+    const { register, handleSubmit, setValue, reset } = useForm();
 
     const { data, loading } = useQuery(GET_ARTICLE, {
         variables: { _id: match.params._id },
         fetchPolicy: 'network-only'
     });
+
+    const [articleBody, setArticleBody] = useState('');
 
     useEffect(() => {
         const article = {
@@ -67,11 +69,8 @@ const EditArticlePage = ({ match }) => {
             }))
         };
         reset(article);
+        setArticleBody(data?.article.body);
     }, [data, loading, reset]);
-
-    useEffect(() => {
-        register('body');
-    }, [register]);
 
     const [updateArticle] = useMutation(UPDATE_ARTICLE);
 
@@ -83,28 +82,30 @@ const EditArticlePage = ({ match }) => {
 
     const mdParser = new MarkdownIt();
 
+    const handleEditorChange = ({ text }) => {
+        setArticleBody(text);
+    };
+
     const onSubmit = async ({
         title,
-        body,
         tags,
         isPublished,
         thumbnail,
         seriesName
     }) => {
         try {
-            const newData = await updateArticle({
+            updateArticle({
                 variables: {
                     _id: match.params._id,
                     title,
-                    body,
-                    tags,
+                    body: articleBody,
+                    tags: [],
                     isPublished,
                     thumbnail,
                     seriesName
                 }
             });
             Toastr.success('Successfully update the article');
-            console.log(newData);
         } catch (e) {
             Toastr.error(e.networkError.result.errors[0].message);
         }
@@ -137,18 +138,10 @@ const EditArticlePage = ({ match }) => {
                                     Article Body
                                 </Typography>
                                 <MdEditor
-                                    value={getValues('body')}
-                                    style={{ height: '500px' }}
+                                    value={articleBody}
+                                    style={{ height: '600px' }}
                                     renderHTML={(text) => mdParser.render(text)}
-                                    config={{
-                                        view: {
-                                            html: false,
-                                            menu: true,
-                                            md: true
-                                        }
-                                    }}
-                                    inputRef={register}
-                                    onChange={(body) => setValue('body', body)}
+                                    onChange={handleEditorChange}
                                 />
                             </CardContent>
                         </Card>

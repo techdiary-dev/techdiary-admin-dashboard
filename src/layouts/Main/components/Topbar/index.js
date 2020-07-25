@@ -49,7 +49,7 @@ const Topbar = (props) => {
             history.push('/sign-in');
             window.location.reload();
         } catch {
-            Toastr.error('Internal Server Error');
+            history.push('/sign-in');
         }
     };
 
@@ -67,13 +67,13 @@ const Topbar = (props) => {
                             <NotificationsIcon />
                         </Badge>
                     </IconButton>
-                    <IconButton
-                        onClick={signOutHandler}
-                        className={classes.signOutButton}
-                        color="inherit">
-                        <InputIcon />
-                    </IconButton>
                 </Hidden>
+                <IconButton
+                    onClick={signOutHandler}
+                    className={classes.signOutButton}
+                    color="inherit">
+                    <InputIcon />
+                </IconButton>
                 <Hidden lgUp>
                     <IconButton color="inherit" onClick={onSidebarOpen}>
                         <MenuIcon />
