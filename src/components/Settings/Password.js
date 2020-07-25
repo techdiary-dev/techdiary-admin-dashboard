@@ -68,7 +68,7 @@ const Password = (props) => {
             });
             Toastr.success('Successfully changed the password');
         } catch (e) {
-            Toastr.error('Your current password is wrong');
+            Toastr.error(e.networkError.result.errors[0].message);
         }
     };
 

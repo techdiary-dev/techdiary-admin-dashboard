@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const USER_LIST = gql`
-    query ARTICLE_LIST($page: Int, $limit: Int) {
+    query USER_LIST($page: Int, $limit: Int) {
         getAllUsers(pagination: { page: $page, limit: $limit }) {
             resourceCount
             pageCount

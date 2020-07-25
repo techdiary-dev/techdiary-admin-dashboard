@@ -72,16 +72,25 @@ const SessionsPage = () => {
                 }
                 editable={{
                     onRowDelete: (data) => {
-                        return new Promise((resolve) => {
-                            deleteSessions({
-                                variables: {
-                                    domain: data.domain,
-                                    sub: data.sub
-                                }
-                            }).then(() => {
+                        return new Promise(async (resolve, reject) => {
+                            try {
+                                await deleteSessions({
+                                    variables: {
+                                        domain: data.domain,
+                                        sub: data.sub
+                                    }
+                                });
                                 resolve();
                                 Toastr.success('Session removed successfully');
-                            });
+                            } catch (e) {
+                                reject(
+                                    Toastr.error(
+                                        e.networkError.result.errors[0].message
+                                    )
+                                );
+                                history.push('/sign-in');
+                                window.location.reload();
+                            }
                         });
                     }
                 }}

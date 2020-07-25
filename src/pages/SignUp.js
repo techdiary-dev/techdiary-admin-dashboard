@@ -189,7 +189,7 @@ const SignUpPage = (props) => {
             Toastr.success('You have successfully signed up');
             history.push('/sign-in');
         } catch (e) {
-            Toastr.error(e.message);
+            Toastr.error(e.networkError.result.errors[0].message);
         }
     };
 

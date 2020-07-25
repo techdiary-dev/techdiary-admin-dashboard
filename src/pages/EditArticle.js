@@ -106,7 +106,7 @@ const EditArticlePage = ({ match }) => {
             Toastr.success('Successfully update the article');
             console.log(newData);
         } catch (e) {
-            Toastr.error(e.message);
+            Toastr.error(e.networkError.result.errors[0].message);
         }
     };
 

@@ -98,7 +98,7 @@ const EditUserPage = ({ match }) => {
             Toastr.success('Successfully update the user');
             console.log(newData);
         } catch (e) {
-            Toastr.error(e.message);
+            Toastr.error(e.networkError.result.errors[0].message);
         }
     };
 

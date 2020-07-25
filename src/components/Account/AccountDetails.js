@@ -53,15 +53,19 @@ const AccountDetails = (props) => {
         progressBar: true
     };
 
-    const onSubmit = ({ name, username, email }) => {
-        updateAdmin({
-            variables: {
-                name,
-                username,
-                email
-            }
-        });
-        Toastr.success('Update profile successfully');
+    const onSubmit = async ({ name, username, email }) => {
+        try {
+            await updateAdmin({
+                variables: {
+                    name,
+                    username,
+                    email
+                }
+            });
+            Toastr.success('Update profile successfully');
+        } catch (e) {
+            Toastr.error(e.networkError.result.errors[0].message);
+        }
     };
 
     return (
