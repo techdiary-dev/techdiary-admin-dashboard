@@ -3,8 +3,8 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Toastr from 'toastr';
+import CreatableSelect from 'react-select/creatable';
 import { RHFInput } from 'react-hook-form-input';
-import Select from 'react-select';
 import { useForm } from 'react-hook-form';
 import { useQuery, useMutation } from '@apollo/client';
 import {
@@ -59,17 +59,23 @@ const EditArticlePage = ({ match }) => {
     });
 
     const [articleBody, setArticleBody] = useState('');
+    const [articleTags, setArticleTags] = useState([]);
 
     useEffect(() => {
         const article = {
             ...data?.article,
-            tags: data?.article.tags.map((item, i) => ({
-                value: i,
+            tags: data?.article.tags.map((item) => ({
+                value: item,
                 label: item
             }))
         };
         reset(article);
+        const formatedTags = data?.article.tags.map((item) => ({
+            value: item,
+            label: item
+        }));
         setArticleBody(data?.article.body);
+        setArticleTags(formatedTags);
     }, [data, loading, reset]);
 
     const [updateArticle] = useMutation(UPDATE_ARTICLE);
@@ -93,13 +99,14 @@ const EditArticlePage = ({ match }) => {
         thumbnail,
         seriesName
     }) => {
+        const updatedFormatTags = tags.map((item) => item.value);
         try {
-            updateArticle({
+            await updateArticle({
                 variables: {
                     _id: match.params._id,
                     title,
                     body: articleBody,
-                    tags: [],
+                    tags: updatedFormatTags,
                     isPublished,
                     thumbnail,
                     seriesName
@@ -150,19 +157,21 @@ const EditArticlePage = ({ match }) => {
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
-                                <Typography
-                                    className={`${classes.spacingBottom}`}>
-                                    Tags
-                                </Typography>
+                                <Typography>Tags</Typography>
                                 <RHFInput
-                                    as={<Select options={data?.article.tags} />}
-                                    rules={{ required: true }}
+                                    as={
+                                        <CreatableSelect
+                                            options={articleTags}
+                                        />
+                                    }
+                                    isMulti
                                     name="tags"
                                     register={register}
                                     setValue={setValue}
                                 />
                             </CardContent>
                         </Card>
+
                         <Card
                             className={`${classes.overflow} ${classes.spacingBottom}`}>
                             <CardContent>
@@ -210,27 +219,3 @@ const EditArticlePage = ({ match }) => {
 };
 
 export default EditArticlePage;
-
-// <Select
-//     onChange={(data) => setValue('tags', data)}
-//     query={{
-//         fetch: TAG_LIST,
-//         create: CREATE_TAG
-//     }}
-//     mutationKey="createTag"
-//     fetchKey="tags"
-//     options={watch('tags')}
-// />;
-
-// <Card>
-//     <CardContent>
-//         <Typography
-//             className={`${classes.cardTitle}`}
-//             color="textSecondary"
-//             gutterBottom>
-//             Choose thumbnail
-//         </Typography>
-
-//         <Thumbnail setValue={setValue} value={watch('thumbnail')} />
-//     </CardContent>
-// </Card>;
