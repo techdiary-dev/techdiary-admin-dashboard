@@ -60,6 +60,7 @@ const SessionsPage = () => {
             <MaterialTable
                 title="Sessions"
                 columns={state.columns}
+                tableRef={tableRef}
                 options={{
                     search: false
                 }}

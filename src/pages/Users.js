@@ -78,6 +78,7 @@ const UsersPage = () => {
             <MaterialTable
                 title="Users"
                 columns={state.columns}
+                tableRef={tableRef}
                 options={{
                     search: false
                 }}
