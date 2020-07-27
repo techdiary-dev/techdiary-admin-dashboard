@@ -38,6 +38,7 @@ export const GET_ARTICLE = gql`
             thumbnail
             isPublished
             isFeatured
+            isPinned
             seriesName
         }
     }
@@ -51,6 +52,7 @@ export const UPDATE_ARTICLE = gql`
         $tags: [String!]
         $isPublished: Boolean
         $isFeatured: Boolean
+        $isPinned: Boolean
         $thumbnail: String
         $seriesName: String
     ) {
@@ -62,6 +64,7 @@ export const UPDATE_ARTICLE = gql`
                 tags: $tags
                 isPublished: $isPublished
                 isFeatured: $isFeatured
+                isPinned: $isPinned
                 thumbnail: $thumbnail
                 seriesName: $seriesName
             }

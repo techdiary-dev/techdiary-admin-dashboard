@@ -97,6 +97,7 @@ const EditArticlePage = ({ match }) => {
         tags,
         isPublished,
         isFeatured,
+        isPinned,
         thumbnail,
         seriesName
     }) => {
@@ -110,6 +111,7 @@ const EditArticlePage = ({ match }) => {
                     tags: updatedFormatTags,
                     isPublished,
                     isFeatured,
+                    isPinned,
                     thumbnail,
                     seriesName
                 }
