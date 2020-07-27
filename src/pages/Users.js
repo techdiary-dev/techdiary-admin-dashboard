@@ -37,11 +37,17 @@ const UsersPage = () => {
                 title: 'Photo',
                 field: 'profilePhoto',
                 render: (rowData) => (
-                    <img
-                        src={rowData.profilePhoto}
-                        alt="Profile Avatar"
-                        style={{ width: 50, borderRadius: '50%' }}
-                    />
+                    <span>
+                        {rowData.profilePhoto ? (
+                            <img
+                                src={rowData.profilePhoto}
+                                alt="Avatar"
+                                style={{ width: 50, borderRadius: '50%' }}
+                            />
+                        ) : (
+                            ''
+                        )}
+                    </span>
                 )
             },
             {

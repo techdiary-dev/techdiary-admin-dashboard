@@ -42,11 +42,17 @@ const ArticlesPage = () => {
                 title: 'Thumbnail',
                 field: 'thumbnail',
                 render: (rowData) => (
-                    <img
-                        src={rowData.thumbnail}
-                        alt="Thumbnail"
-                        style={{ width: '50%', height: 'auto' }}
-                    />
+                    <span>
+                        {rowData.thumbnail ? (
+                            <img
+                                src={rowData.thumbnail}
+                                alt="Thumbnail"
+                                style={{ width: '50%', height: 'auto' }}
+                            />
+                        ) : (
+                            ''
+                        )}
+                    </span>
                 )
             },
             {
