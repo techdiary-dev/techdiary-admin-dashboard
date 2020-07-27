@@ -10,6 +10,8 @@ import {
     Dashboard,
     Create,
     Articles,
+    FeaturedArticles,
+    PinnedArticles,
     EditArticle,
     Users,
     EditUser,
@@ -43,6 +45,18 @@ const Routes = () => {
                 exact
                 layout={MainLayout}
                 path="/articles"
+            />
+            <PrivateRoute
+                component={FeaturedArticles}
+                exact
+                layout={MainLayout}
+                path="/featured-articles"
+            />
+            <PrivateRoute
+                component={PinnedArticles}
+                exact
+                layout={MainLayout}
+                path="/pinned-articles"
             />
             <PrivateRoute
                 component={EditArticle}

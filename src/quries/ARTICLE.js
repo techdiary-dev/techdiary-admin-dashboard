@@ -20,10 +20,55 @@ export const ARTICLE_LIST = gql`
     }
 `;
 
+export const FEATURED_ARTICLE_LIST = gql`
+    query FEATURED_ARTICLE_LIST($page: Int, $limit: Int) {
+        featuredArticles(pagination: { page: $page, limit: $limit }) {
+            resourceCount
+            pageCount
+            currentPage
+            data {
+                title
+                thumbnail
+                url
+                author {
+                    name
+                }
+            }
+        }
+    }
+`;
+
+export const PINNED_ARTICLE_LIST = gql`
+    query PINNED_ARTICLE_LIST($page: Int, $limit: Int) {
+        pinnedArticles(pagination: { page: $page, limit: $limit }) {
+            resourceCount
+            pageCount
+            currentPage
+            data {
+                title
+                thumbnail
+                url
+                author {
+                    name
+                }
+            }
+        }
+    }
+`;
+
 export const TOTAL_ARTICLE = gql`
     query TOTAL_ARTICLE($page: Int, $limit: Int) {
         articles(pagination: { page: $page, limit: $limit }) {
-            resourceCount
+            data {
+                _id
+                title
+                body
+                thumbnail
+                author {
+                    name
+                    username
+                }
+            }
         }
     }
 `;
