@@ -59,16 +59,7 @@ export const PINNED_ARTICLE_LIST = gql`
 export const TOTAL_ARTICLE = gql`
     query TOTAL_ARTICLE($page: Int, $limit: Int) {
         articles(pagination: { page: $page, limit: $limit }) {
-            data {
-                _id
-                title
-                body
-                thumbnail
-                author {
-                    name
-                    username
-                }
-            }
+            resourceCount
         }
     }
 `;
