@@ -10,7 +10,8 @@ import PeopleIcon from '@material-ui/icons/People';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import { Profile, SidebarNav } from './components';
+import Profile from './components/Profile';
+import SidebarNav from './components/SidebarNav';
 
 const useStyles = makeStyles((theme) => ({
     drawer: {

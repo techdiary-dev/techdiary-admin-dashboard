@@ -2,7 +2,9 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
-import { Main as MainLayout, Minimal as MinimalLayout } from '../layouts';
+
+import MainLayout from '../layouts/Main';
+import MinimalLayout from '../layouts/Minimal';
 
 import {
     Dashboard,

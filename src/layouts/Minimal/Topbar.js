@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { AppBar, Toolbar } from '@material-ui/core';
 
-import Logo from '../../../../utils/logo';
+import Logo from '../../utils/logo';
 
 const useStyles = makeStyles(() => ({
     root: {

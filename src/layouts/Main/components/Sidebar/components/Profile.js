@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
 
-import { ME } from '../../../../../../quries/ME';
+import { ME } from '../../../../../quries/ME';
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -10,8 +10,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 
-import Logo from '../../../../utils/logo';
-import { ADMIN_LOGOUT } from '../../../../quries/AUTH';
+import Logo from '../../../utils/logo';
+import { ADMIN_LOGOUT } from '../../../quries/AUTH';
 
 const useStyles = makeStyles((theme) => ({
     root: {
