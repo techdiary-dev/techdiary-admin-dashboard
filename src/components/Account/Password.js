@@ -34,7 +34,7 @@ const Password = (props) => {
 
     const classes = useStyles();
 
-    const { register, handleSubmit, getValues, errors, formState } = useForm({
+    const { register, handleSubmit, getValues, errors } = useForm({
         resolver: yupResolver(passwordSchema)
     });
 
