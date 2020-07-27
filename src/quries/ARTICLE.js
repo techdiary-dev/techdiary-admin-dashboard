@@ -11,7 +11,6 @@ export const ARTICLE_LIST = gql`
                 title
                 body
                 thumbnail
-                tags
                 author {
                     name
                     username
@@ -38,6 +37,7 @@ export const GET_ARTICLE = gql`
             tags
             thumbnail
             isPublished
+            isFeatured
             seriesName
         }
     }
@@ -50,6 +50,7 @@ export const UPDATE_ARTICLE = gql`
         $body: String
         $tags: [String!]
         $isPublished: Boolean
+        $isFeatured: Boolean
         $thumbnail: String
         $seriesName: String
     ) {
@@ -60,13 +61,12 @@ export const UPDATE_ARTICLE = gql`
                 body: $body
                 tags: $tags
                 isPublished: $isPublished
+                isFeatured: $isFeatured
                 thumbnail: $thumbnail
                 seriesName: $seriesName
             }
         ) {
             _id
-            title
-            body
         }
     }
 `;

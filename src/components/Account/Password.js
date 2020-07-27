@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Toastr from 'toastr';
 import { useForm } from 'react-hook-form';
@@ -27,11 +28,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Password = (props) => {
+    const history = useHistory();
+
     const { className, ...rest } = props;
 
     const classes = useStyles();
 
-    const { register, handleSubmit, getValues, errors } = useForm({
+    const { register, handleSubmit, getValues, errors, formState } = useForm({
         resolver: yupResolver(passwordSchema)
     });
 
@@ -67,6 +70,7 @@ const Password = (props) => {
                 }
             });
             Toastr.success('Successfully changed the password');
+            history.push('/sign-in');
         } catch (e) {
             Toastr.error(e.networkError.result.errors[0].message);
         }

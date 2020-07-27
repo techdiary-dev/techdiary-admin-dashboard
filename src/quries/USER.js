@@ -12,12 +12,7 @@ export const USER_LIST = gql`
                 username
                 email
                 profilePhoto
-                education
-                designation
                 location
-                bio
-                skills
-                githubUID
             }
         }
     }

@@ -58,12 +58,7 @@ const UsersPage = () => {
             },
             { title: 'Username', field: 'username' },
             { title: 'Email', field: 'email' },
-            { title: 'Education', field: 'education' },
-            { title: 'Designation', field: 'designation' },
-            { title: 'Location', field: 'location' },
-            { title: 'Bio', field: 'bio' },
-            { title: 'Skills', field: 'skills' },
-            { title: 'GitHub UID', field: 'githubUID' }
+            { title: 'Location', field: 'location' }
         ]
     });
 
@@ -97,25 +92,6 @@ const UsersPage = () => {
                         });
                     })
                 }
-                // editable={{
-                //     onRowDelete: (data) => {
-                //         return new Promise(async (resolve, reject) => {
-                //             await deleteArticle({
-                //                 variables: { _id: data._id }
-                //             });
-                //             console.log(error?.message);
-                //             if (error?.message.length) {
-                //                 console.log(error?.message);
-                //                 return reject();
-                //             } else {
-                //                 resolve();
-                //                 Toastr.success(
-                //                     'You have deleted article successfully'
-                //                 );
-                //             }
-                //         });
-                //     }
-                // }}
                 actions={[
                     {
                         icon: 'edit',

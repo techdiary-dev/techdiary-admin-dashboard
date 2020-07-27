@@ -96,6 +96,7 @@ const EditArticlePage = ({ match }) => {
         title,
         tags,
         isPublished,
+        isFeatured,
         thumbnail,
         seriesName
     }) => {
@@ -108,6 +109,7 @@ const EditArticlePage = ({ match }) => {
                     body: articleBody,
                     tags: updatedFormatTags,
                     isPublished,
+                    isFeatured,
                     thumbnail,
                     seriesName
                 }
@@ -184,6 +186,38 @@ const EditArticlePage = ({ match }) => {
                                     register={register}
                                     setValue={setValue}
                                     name="isPublished"
+                                    as={<Switch />}
+                                />
+                            </CardContent>
+                        </Card>
+                        <Card
+                            className={`${classes.overflow} ${classes.spacingBottom}`}>
+                            <CardContent>
+                                <Typography
+                                    className={`${classes.spacingBottom}`}>
+                                    Featured Status
+                                </Typography>
+                                <RHFInput
+                                    type="checkbox"
+                                    register={register}
+                                    setValue={setValue}
+                                    name="isFeatured"
+                                    as={<Switch />}
+                                />
+                            </CardContent>
+                        </Card>
+                        <Card
+                            className={`${classes.overflow} ${classes.spacingBottom}`}>
+                            <CardContent>
+                                <Typography
+                                    className={`${classes.spacingBottom}`}>
+                                    Pinned Status
+                                </Typography>
+                                <RHFInput
+                                    type="checkbox"
+                                    register={register}
+                                    setValue={setValue}
+                                    name="isPinned"
                                     as={<Switch />}
                                 />
                             </CardContent>

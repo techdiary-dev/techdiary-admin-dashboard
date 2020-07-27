@@ -49,7 +49,6 @@ const ArticlesPage = () => {
                     />
                 )
             },
-            { title: 'Tags', field: 'tags' },
             {
                 title: 'Author',
                 field: 'author.name',
