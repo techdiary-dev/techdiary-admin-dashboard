@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import Toastr from 'toastr';
 import { makeStyles } from '@material-ui/styles';
@@ -15,7 +16,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AdminsPage = () => {
+const CreateAdminPage = () => {
+    const history = useHistory();
+
     const tableRef = createRef();
 
     useEffect(() => {
@@ -68,6 +71,12 @@ const AdminsPage = () => {
                 }
                 actions={[
                     {
+                        icon: 'add',
+                        tooltip: 'Create Admin',
+                        isFreeAction: true,
+                        onClick: () => history.push('/create-admin')
+                    },
+                    {
                         icon: 'refresh',
                         tooltip: 'Refresh',
                         isFreeAction: true,
@@ -80,4 +89,4 @@ const AdminsPage = () => {
     );
 };
 
-export default AdminsPage;
+export default CreateAdminPage;

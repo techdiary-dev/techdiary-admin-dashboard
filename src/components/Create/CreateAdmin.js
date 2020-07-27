@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import validate from 'validate.js';
 import Toastr from 'toastr';
@@ -45,6 +46,7 @@ const schema = {
 };
 
 const CreateAdmin = (props) => {
+    const history = useHistory();
     useEffect(() => {
         document.title = 'Tech Diary | Signup';
     }, []);
@@ -114,6 +116,7 @@ const CreateAdmin = (props) => {
                 errors: {}
             });
             Toastr.success('Successfully created a admin');
+            history.push('/admins');
         } catch (e) {
             Toastr.error(e.message);
         }

@@ -38,7 +38,7 @@ const Routes = () => {
                 component={Create}
                 exact
                 layout={MainLayout}
-                path="/create"
+                path="/create-admin"
             />
             <PrivateRoute
                 component={Articles}
