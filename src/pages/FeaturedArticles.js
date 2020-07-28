@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import { makeStyles } from '@material-ui/styles';
 import { useQuery, useMutation } from '@apollo/client';
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const FeaturedArticlesPage = () => {
+    const history = useHistory();
     const tableRef = createRef();
 
     useEffect(() => {
@@ -119,6 +121,12 @@ const FeaturedArticlesPage = () => {
                     })
                 }
                 actions={[
+                    {
+                        icon: 'edit',
+                        tooltip: 'Edit Featured Article',
+                        onClick: (_, { _id }) =>
+                            history.push('/articles/edit/' + _id)
+                    },
                     {
                         icon: 'refresh',
                         tooltip: 'Refresh',
