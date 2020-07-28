@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
 
 const UsersPage = () => {
     const tableRef = createRef();
-
     const history = useHistory();
+    const [selectedRow, setSelectedRow] = useState(null);
 
     useEffect(() => {
         document.title = 'Tech Diary | Users';
@@ -98,6 +98,21 @@ const UsersPage = () => {
                         });
                     })
                 }
+                onRowClick={(evt, selectedRow) =>
+                    setSelectedRow(selectedRow.tableData.id)
+                }
+                options={{
+                    headerStyle: {
+                        fontSize: '17px',
+                        fontWeight: 'bold'
+                    },
+                    rowStyle: (rowData) => ({
+                        backgroundColor:
+                            selectedRow === rowData.tableData.id
+                                ? '#EEE'
+                                : '#FFF'
+                    })
+                }}
                 actions={[
                     {
                         icon: 'edit',
