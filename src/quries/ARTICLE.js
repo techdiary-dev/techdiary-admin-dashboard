@@ -30,9 +30,11 @@ export const FEATURED_ARTICLE_LIST = gql`
             pageCount
             currentPage
             data {
+                _id
                 title
                 thumbnail
                 url
+                isFeatured
                 author {
                     name
                 }
@@ -48,9 +50,11 @@ export const PINNED_ARTICLE_LIST = gql`
             pageCount
             currentPage
             data {
+                _id
                 title
                 thumbnail
                 url
+                isPinned
                 author {
                     name
                 }
@@ -79,17 +83,6 @@ export const GET_ARTICLE = gql`
             isFeatured
             isPinned
             seriesName
-        }
-    }
-`;
-
-export const GET_ARTICLE_BY_ID = gql`
-    query GET_ARTICLE_BY_ID($_id: ID) {
-        article(idOrSlug: { _id: $_id }) {
-            _id
-            isPublished
-            isFeatured
-            isPinned
         }
     }
 `;
