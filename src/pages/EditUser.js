@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
     spacingRight: {
         marginRight: 15
     },
+    deleteIcon: {
+        display: 'flex',
+        alignItems: 'center'
+    },
     errorMsg: {
         color: 'red'
     }
@@ -298,6 +302,7 @@ const EditUserPage = ({
                                                     <Typography>
                                                         Link
                                                     </Typography>
+
                                                     <TextField
                                                         variant="outlined"
                                                         name={`links[${index}].link`}
@@ -311,7 +316,13 @@ const EditUserPage = ({
                                                         onClick={() =>
                                                             removeLink(index)
                                                         }>
-                                                        <DeleteIcon />
+                                                        <span
+                                                            style={{
+                                                                cursor:
+                                                                    'pointer'
+                                                            }}>
+                                                            <DeleteIcon />
+                                                        </span>
                                                     </div>
                                                 </CardContent>
                                             </Grid>
@@ -422,6 +433,7 @@ const EditUserPage = ({
                                                     <Typography>
                                                         End Time
                                                     </Typography>
+
                                                     <TextField
                                                         variant="outlined"
                                                         margin="dense"
@@ -438,7 +450,13 @@ const EditUserPage = ({
                                                                 index
                                                             )
                                                         }>
-                                                        <DeleteIcon />
+                                                        <span
+                                                            style={{
+                                                                cursor:
+                                                                    'pointer'
+                                                            }}>
+                                                            <DeleteIcon />
+                                                        </span>
                                                     </div>
                                                 </CardContent>
                                             </Grid>
@@ -479,22 +497,35 @@ const EditUserPage = ({
                                                 md={12}
                                                 lg={12}>
                                                 <CardContent>
-                                                    <TextField
-                                                        variant="outlined"
-                                                        name={`skills[${index}]`}
-                                                        placeholder="Skills"
-                                                        margin="dense"
-                                                        fullWidth
-                                                        defaultValue={
-                                                            item.value
-                                                        } // make sure to set up defaultValue
-                                                        inputRef={register()}
-                                                    />
                                                     <div
-                                                        onClick={() =>
-                                                            removeSkill(index)
+                                                        className={
+                                                            classes.deleteIcon
                                                         }>
-                                                        <DeleteIcon />
+                                                        <TextField
+                                                            variant="outlined"
+                                                            name={`skills[${index}]`}
+                                                            placeholder="Skills"
+                                                            margin="dense"
+                                                            fullWidth
+                                                            defaultValue={
+                                                                item.value
+                                                            } // make sure to set up defaultValue
+                                                            inputRef={register()}
+                                                        />
+                                                        <div
+                                                            onClick={() =>
+                                                                removeSkill(
+                                                                    index
+                                                                )
+                                                            }>
+                                                            <span
+                                                                style={{
+                                                                    cursor:
+                                                                        'pointer'
+                                                                }}>
+                                                                <DeleteIcon />
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </CardContent>
                                             </Grid>
