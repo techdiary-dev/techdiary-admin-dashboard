@@ -61,7 +61,7 @@ const SignInPage = () => {
     const classes = useStyles();
 
     useEffect(() => {
-        document.title = 'Tech Diary | Signin';
+        document.title = 'Tech Diary | Sign in';
     }, []);
 
     const { register, handleSubmit, errors } = useForm({
