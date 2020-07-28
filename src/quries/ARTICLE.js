@@ -11,6 +11,9 @@ export const ARTICLE_LIST = gql`
                 title
                 body
                 thumbnail
+                isPublished
+                isFeatured
+                isPinned
                 author {
                     name
                     username
@@ -76,6 +79,17 @@ export const GET_ARTICLE = gql`
             isFeatured
             isPinned
             seriesName
+        }
+    }
+`;
+
+export const GET_ARTICLE_BY_ID = gql`
+    query GET_ARTICLE_BY_ID($_id: ID) {
+        article(idOrSlug: { _id: $_id }) {
+            _id
+            isPublished
+            isFeatured
+            isPinned
         }
     }
 `;

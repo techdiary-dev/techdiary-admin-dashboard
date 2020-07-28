@@ -4,8 +4,13 @@ import MaterialTable from 'material-table';
 import Toastr from 'toastr';
 import { makeStyles } from '@material-ui/styles';
 import { useQuery, useMutation } from '@apollo/client';
+import { Switch } from '@material-ui/core';
 
-import { ARTICLE_LIST, DELETE_ARTICLE } from '../quries/ARTICLE';
+import {
+    ARTICLE_LIST,
+    DELETE_ARTICLE,
+    UPDATE_ARTICLE
+} from '../quries/ARTICLE';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,9 +33,13 @@ const ArticlesPage = () => {
     const { fetchMore } = useQuery(ARTICLE_LIST, {
         errorPolicy: 'all'
     });
-    const [deleteArticle] = useMutation(DELETE_ARTICLE, {
-        errorPolicy: 'all',
-        fetchPolicy: 'no-cache'
+    const [deleteArticle] = useMutation(DELETE_ARTICLE);
+    const [updateArticle] = useMutation(UPDATE_ARTICLE, {
+        refetchQueries: [
+            {
+                query: ARTICLE_LIST
+            }
+        ]
     });
 
     const classes = useStyles();
@@ -66,9 +75,52 @@ const ArticlesPage = () => {
                         {rowData.author.name}
                     </a>
                 )
+            },
+            {
+                title: 'Published Status',
+                field: 'isPublished',
+                render: (rowData) => (
+                    <Switch
+                        checked={rowData.isPublished}
+                        onChange={() => changeHandler(rowData, 'isPublished')}
+                    />
+                )
+            },
+            {
+                title: 'Featured Status',
+                field: 'isFeatured',
+                render: (rowData) => (
+                    <Switch
+                        checked={rowData.isFeatured}
+                        onChange={() => changeHandler(rowData, 'isFeatured')}
+                    />
+                )
+            },
+            {
+                title: 'Pinned Status',
+                field: 'isPinned',
+                render: (rowData) => (
+                    <Switch
+                        checked={rowData.isPinned}
+                        onChange={() => changeHandler(rowData, 'isPinned')}
+                    />
+                )
             }
         ]
     });
+
+    const changeHandler = (rowData, key) => {
+        rowData[key] = !rowData[key];
+        updateArticle({
+            variables: { ...rowData }
+        });
+        if (key === 'isPublished')
+            return Toastr.success(`Published status updated successfully`);
+        if (key === 'isFeatured')
+            return Toastr.success(`Featured status updated successfully`);
+        if (key === 'isPinned')
+            return Toastr.success(`Pinned status updated successfully`);
+    };
 
     Toastr.options = {
         closeButton: true,
