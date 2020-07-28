@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 const PinnedArticlesPage = () => {
     const history = useHistory();
     const tableRef = createRef();
-    const [selectedRow, setSelectedRow] = useState(null);
 
     useEffect(() => {
         document.title = 'Tech Diary | Pinned Articles';
@@ -117,21 +116,12 @@ const PinnedArticlesPage = () => {
                         });
                     })
                 }
-                onRowClick={(evt, selectedRow) =>
-                    setSelectedRow(selectedRow.tableData.id)
-                }
                 options={{
                     search: false,
                     headerStyle: {
                         fontSize: '16px',
                         fontWeight: 'bold'
-                    },
-                    rowStyle: (rowData) => ({
-                        backgroundColor:
-                            selectedRow === rowData.tableData.id
-                                ? '#EEE'
-                                : '#FFF'
-                    })
+                    }
                 }}
                 actions={[
                     {
