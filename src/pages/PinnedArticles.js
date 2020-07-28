@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import MaterialTable from 'material-table';
 import { makeStyles } from '@material-ui/styles';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
+import { Switch } from '@material-ui/core';
+import Toastr from 'toastr';
 
-import { PINNED_ARTICLE_LIST } from '../quries/ARTICLE';
+import { PINNED_ARTICLE_LIST, UPDATE_ARTICLE } from '../quries/ARTICLE';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,12 +17,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PinnedArticlesPage = () => {
+    const tableRef = createRef();
+
     useEffect(() => {
         document.title = 'Tech Diary | Pinned Articles';
     }, []);
 
     const { fetchMore } = useQuery(PINNED_ARTICLE_LIST, {
         errorPolicy: 'all'
+    });
+
+    const [updateArticle] = useMutation(UPDATE_ARTICLE, {
+        refetchQueries: [
+            {
+                query: PINNED_ARTICLE_LIST
+            }
+        ]
     });
 
     const classes = useStyles();
@@ -59,15 +71,34 @@ const PinnedArticlesPage = () => {
             {
                 title: 'Author',
                 field: 'author.name'
+            },
+            {
+                title: 'Status',
+                field: 'isPinned',
+                render: (rowData) => (
+                    <Switch
+                        checked={rowData.isPinned}
+                        onChange={() => changeHandler(rowData)}
+                    />
+                )
             }
         ]
     });
+
+    const changeHandler = async (rowData) => {
+        rowData.isPinned = !rowData.isPinned;
+        updateArticle({
+            variables: { ...rowData }
+        });
+        Toastr.success(`Pinned status updated successfully`);
+    };
 
     return (
         <div className={classes.root}>
             <MaterialTable
                 title="Pinned Articles"
                 columns={state.columns}
+                tableRef={tableRef}
                 options={{
                     search: false
                 }}
@@ -86,6 +117,15 @@ const PinnedArticlesPage = () => {
                         });
                     })
                 }
+                actions={[
+                    {
+                        icon: 'refresh',
+                        tooltip: 'Refresh',
+                        isFreeAction: true,
+                        onClick: () =>
+                            tableRef.current && tableRef.current.onQueryChange()
+                    }
+                ]}
             />
         </div>
     );
