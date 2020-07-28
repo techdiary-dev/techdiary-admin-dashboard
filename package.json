@@ -51,7 +51,6 @@
         "react-scripts": "^3.0.1",
         "react-select": "^3.1.0",
         "toastr": "^2.1.4",
-        "validate.js": "^0.13.1",
         "yup": "^0.29.1"
     }
 }
