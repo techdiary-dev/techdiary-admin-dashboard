@@ -3,18 +3,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './ApolloClient';
 import { ThemeProvider } from '@material-ui/styles';
-import validate from 'validate.js';
 import 'react-perfect-scrollbar/dist/css/styles.css';
-
-import validators from './utils/validators';
 import theme from './theme/index';
 import Routes from './router/Routes';
 import './style.scss';
-
-validate.validators = {
-    ...validate.validators,
-    ...validators
-};
 
 export default class App extends Component {
     render() {

@@ -125,7 +125,7 @@ const PinnedArticlesPage = () => {
                 }
                 options={{
                     headerStyle: {
-                        fontSize: '17px',
+                        fontSize: '16px',
                         fontWeight: 'bold'
                     },
                     rowStyle: (rowData) => ({
