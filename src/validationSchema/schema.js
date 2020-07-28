@@ -11,3 +11,8 @@ export const passwordSchema = yup.object().shape({
     newPassword: yup.string().required('Required'),
     confirmNewPassword: yup.string().required('Required')
 });
+
+export const signInSchema = yup.object().shape({
+    identifier: yup.string().required('Identifier is required'),
+    password: yup.string().required('Password is required')
+});

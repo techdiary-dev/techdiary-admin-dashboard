@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -16,8 +17,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PrivateRoute = (props) => {
+    const history = useHistory();
     const { layout: Layout, component: Component, ...rest } = props;
     const { data, loading } = useQuery(ME);
+    console.log(history);
 
     const classes = useStyles();
 
