@@ -61,9 +61,6 @@ const SessionsPage = () => {
                 title="Sessions"
                 columns={state.columns}
                 tableRef={tableRef}
-                options={{
-                    search: false
-                }}
                 data={(query) =>
                     new Promise(async (resolve) => {
                         const data = await fetchMore({
@@ -107,6 +104,7 @@ const SessionsPage = () => {
                     setSelectedRow(selectedRow.tableData.id)
                 }
                 options={{
+                    search: false,
                     headerStyle: {
                         fontSize: '16px',
                         fontWeight: 'bold'
