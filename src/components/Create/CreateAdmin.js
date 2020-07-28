@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import validate from 'validate.js';
-import Toastr from 'toastr';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers';
 import { withRouter } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+import { makeStyles } from '@material-ui/styles';
+import PropTypes from 'prop-types';
+import Toastr from 'toastr';
 import {
     Card,
     CardHeader,
@@ -12,80 +14,33 @@ import {
     CardActions,
     Divider,
     Button,
-    TextField
+    TextField,
+    Typography
 } from '@material-ui/core';
 
+import { createAdminSchema } from '../../validationSchema/schema';
 import { CREATE_ADMIN } from '../../quries/AUTH';
 
-const schema = {
-    name: {
-        presence: { allowEmpty: false, message: 'is required' },
-        length: {
-            maximum: 32
-        }
-    },
-    username: {
-        presence: { allowEmpty: false, message: 'is required' },
-        length: {
-            maximum: 32
-        }
-    },
-    email: {
-        presence: { allowEmpty: false, message: 'is required' },
-        email: true,
-        length: {
-            maximum: 64
-        }
-    },
-    password: {
-        presence: { allowEmpty: false, message: 'is required' },
-        length: {
-            maximum: 128
-        }
+const useStyles = makeStyles((theme) => ({
+    errorMsg: {
+        marginTop: 8,
+        color: 'red'
     }
-};
+}));
 
-const CreateAdmin = (props) => {
+const CreateAdmin = () => {
     const history = useHistory();
+    const classes = useStyles();
+
     useEffect(() => {
-        document.title = 'Tech Diary | Signup';
+        document.title = 'Tech Diary | Create Admin';
     }, []);
 
-    const [formState, setFormState] = useState({
-        isValid: false,
-        values: {},
-        touched: {},
-        errors: {}
+    const { register, handleSubmit, errors } = useForm({
+        resolver: yupResolver(createAdminSchema)
     });
 
-    useEffect(() => {
-        const errors = validate(formState.values, schema);
-
-        setFormState((formState) => ({
-            ...formState,
-            isValid: errors ? false : true,
-            errors: errors || {}
-        }));
-    }, [formState.values]);
-
-    const handleChange = (event) => {
-        event.persist();
-
-        setFormState((formState) => ({
-            ...formState,
-            values: {
-                ...formState.values,
-                [event.target.name]:
-                    event.target.type === 'checkbox'
-                        ? event.target.checked
-                        : event.target.value
-            },
-            touched: {
-                ...formState.touched,
-                [event.target.name]: true
-            }
-        }));
-    };
+    const [createAdmin] = useMutation(CREATE_ADMIN);
 
     Toastr.options = {
         closeButton: true,
@@ -93,13 +48,7 @@ const CreateAdmin = (props) => {
         progressBar: true
     };
 
-    const [createAdmin] = useMutation(CREATE_ADMIN);
-
-    const { name, username, email, password } = formState.values;
-
-    const handleCreateAdmin = async (e) => {
-        e.preventDefault();
-
+    const onSubmit = async ({ name, username, email, password }) => {
         try {
             await createAdmin({
                 variables: {
@@ -109,12 +58,6 @@ const CreateAdmin = (props) => {
                     password
                 }
             });
-            setFormState({
-                isValid: false,
-                values: {},
-                touched: {},
-                errors: {}
-            });
             Toastr.success('Successfully created a admin');
             history.push('/admins');
         } catch (e) {
@@ -122,84 +65,99 @@ const CreateAdmin = (props) => {
         }
     };
 
-    const hasError = (field) =>
-        formState.touched[field] && formState.errors[field] ? true : false;
-
     return (
         <Card>
-            <form onSubmit={handleCreateAdmin}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <CardHeader title="Create Admin" />
                 <Divider />
                 <CardContent>
                     <TextField
                         fullWidth
                         margin="dense"
-                        error={hasError('name')}
-                        helperText={
-                            hasError('name') ? formState.errors.name[0] : null
-                        }
                         label="Name"
                         name="name"
-                        onChange={handleChange}
                         type="text"
-                        value={formState.values.name || ''}
                         variant="outlined"
+                        inputRef={register}
+                        error={errors?.name?.message}
                     />
+
+                    {errors?.name?.message && (
+                        <Typography
+                            className={classes.errorMsg}
+                            color="textSecondary"
+                            gutterBottom>
+                            {errors?.name?.message}
+                        </Typography>
+                    )}
+
                     <TextField
                         fullWidth
                         margin="dense"
-                        error={hasError('username')}
-                        helperText={
-                            hasError('username')
-                                ? formState.errors.username[0]
-                                : null
-                        }
                         label="Username"
                         name="username"
-                        onChange={handleChange}
                         type="text"
-                        value={formState.values.username || ''}
                         variant="outlined"
                         style={{ marginTop: '1rem' }}
+                        inputRef={register}
+                        error={errors?.username?.message}
                     />
+
+                    {errors?.username?.message && (
+                        <Typography
+                            className={classes.errorMsg}
+                            color="textSecondary"
+                            gutterBottom>
+                            {errors?.username?.message}
+                        </Typography>
+                    )}
+
                     <TextField
                         fullWidth
                         margin="dense"
-                        error={hasError('email')}
-                        helperText={
-                            hasError('email') ? formState.errors.email[0] : null
-                        }
                         label="Email address"
                         name="email"
-                        onChange={handleChange}
                         type="text"
-                        value={formState.values.email || ''}
                         variant="outlined"
                         style={{ marginTop: '1rem' }}
+                        inputRef={register}
+                        error={errors?.email?.message}
                     />
+
+                    {errors?.email?.message && (
+                        <Typography
+                            className={classes.errorMsg}
+                            color="textSecondary"
+                            gutterBottom>
+                            {errors?.email?.message}
+                        </Typography>
+                    )}
+
                     <TextField
                         fullWidth
                         margin="dense"
-                        error={hasError('password')}
-                        helperText={
-                            hasError('password')
-                                ? formState.errors.password[0]
-                                : null
-                        }
                         style={{ marginTop: '1rem' }}
                         label="Password"
                         name="password"
-                        onChange={handleChange}
                         type="password"
-                        value={formState.values.password || ''}
                         variant="outlined"
+                        inputRef={register}
+                        error={errors?.password?.message}
                     />
+
+                    {errors?.password?.message && (
+                        <Typography
+                            className={classes.errorMsg}
+                            color="textSecondary"
+                            gutterBottom>
+                            {errors?.password?.message}
+                        </Typography>
+                    )}
                 </CardContent>
                 <Divider />
                 <CardActions>
                     <Button
                         color="primary"
-                        disabled={!formState.isValid}
                         fullWidth
                         type="submit"
                         variant="contained">
