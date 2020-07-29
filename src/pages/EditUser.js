@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Toastr from 'toastr';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useQuery, useMutation } from '@apollo/client';
@@ -38,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
     },
     spacingRight: {
         marginRight: 15
+    },
+    profilePhoto: {
+        display: 'flex',
+        justifyContent: 'center'
     },
     deleteIcon: {
         display: 'flex',
@@ -123,6 +127,7 @@ const EditUserPage = ({
         if (!skills) skills = [];
         if (!links) links = [];
         if (!workInfo) workInfo = [];
+
         try {
             await updateUserProfile({
                 variables: {
@@ -148,6 +153,15 @@ const EditUserPage = ({
     return (
         <div className={classes.root}>
             <form onSubmit={handleSubmit(onSubmit)}>
+                <Grid container justify="center">
+                    <img
+                        src={data?.profile.profilePhoto}
+                        alt="Avatar"
+                        style={{ width: 125, borderRadius: '50%' }}
+                        className={` ${classes.spacingBottom} `}
+                    />
+                </Grid>
+
                 <Grid container spacing={3} className={classes.spacingBottom}>
                     <Grid item xs={12} sm={12} md={12} lg={6}>
                         <Card className={`${classes.overflow}`}>
