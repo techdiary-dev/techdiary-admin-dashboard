@@ -50,7 +50,6 @@ const TotalUser = (props) => {
                             TOTAL USER
                         </Typography>
                         <Typography variant="h3">
-                            {' '}
                             {data?.getAllUsers.resourceCount}
                         </Typography>
                     </Grid>

@@ -50,7 +50,6 @@ const TotalSession = (props) => {
                             TOTAL SESSION
                         </Typography>
                         <Typography variant="h3">
-                            {' '}
                             {data?.sessions.resourceCount}
                         </Typography>
                     </Grid>
