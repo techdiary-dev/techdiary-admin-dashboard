@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
 import PeopleIcon from '@material-ui/icons/People';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { TOTAL_USER } from '../../quries/USER';
 
@@ -50,7 +51,11 @@ const TotalUser = (props) => {
                             TOTAL USER
                         </Typography>
                         <Typography variant="h3">
-                            {data?.getAllUsers.resourceCount}
+                            {data ? (
+                                data.getAllUsers.resourceCount
+                            ) : (
+                                <CircularProgress color="secondary" size={17} />
+                            )}
                         </Typography>
                     </Grid>
                     <Grid item>
