@@ -36,7 +36,7 @@ const TotalUser = (props) => {
 
     const classes = useStyles();
 
-    const { data } = useQuery(TOTAL_USER);
+    const { data, loading } = useQuery(TOTAL_USER);
 
     return (
         <Card {...rest} className={clsx(classes.root, className)}>
@@ -51,11 +51,11 @@ const TotalUser = (props) => {
                             TOTAL USER
                         </Typography>
                         <Typography variant="h3">
-                            {data ? (
-                                data.getAllUsers.resourceCount
-                            ) : (
+                            {loading && (
                                 <CircularProgress color="secondary" size={17} />
                             )}
+
+                            {data?.getAllUsers.resourceCount}
                         </Typography>
                     </Grid>
                     <Grid item>
