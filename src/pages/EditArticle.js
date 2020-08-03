@@ -4,6 +4,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Toastr from 'toastr';
 import CreatableSelect from 'react-select/creatable';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { RHFInput } from 'react-hook-form-input';
 import { useForm } from 'react-hook-form';
 import { useQuery, useMutation } from '@apollo/client';
@@ -23,6 +24,12 @@ import { GET_ARTICLE, UPDATE_ARTICLE } from '../quries/ARTICLE';
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(4)
+    },
+    progress: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%'
     },
     overflow: {
         overflow: 'visible'
@@ -121,6 +128,13 @@ const EditArticlePage = ({ match }) => {
             Toastr.error(e.networkError.result.errors[0].message);
         }
     };
+
+    if (loading)
+        return (
+            <div className={`${classes.progress}`}>
+                <CircularProgress color="secondary" size={35} />
+            </div>
+        );
 
     return (
         <div className={classes.root}>
