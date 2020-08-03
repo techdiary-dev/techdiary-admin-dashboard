@@ -6,23 +6,21 @@ import PrivateRoute from './PrivateRoute';
 import MainLayout from '../layouts/Main';
 import MinimalLayout from '../layouts/Minimal';
 
-import {
-    Dashboard,
-    Create,
-    Articles,
-    FeaturedArticles,
-    PinnedArticles,
-    EditArticle,
-    Users,
-    EditUser,
-    Admins,
-    Sessions,
-    Account,
-    Settings,
-    SignUp,
-    SignIn,
-    NotFound
-} from '../pages';
+import Dashboard from '../pages/Dashboard';
+import Create from '../pages/Create';
+import Articles from '../pages/Articles';
+import FeaturedArticles from '../pages/FeaturedArticles';
+import PinnedArticles from '../pages/PinnedArticles';
+import EditArticle from '../pages/EditArticle';
+import Users from '../pages/Users';
+import EditUser from '../pages/EditUser';
+import Admins from '../pages/Admins';
+import Sessions from '../pages/Sessions';
+import Account from '../pages/Account';
+import Settings from '../pages/Settings';
+import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
+import NotFound from '../pages/NotFound';
 
 const Routes = () => {
     return (
