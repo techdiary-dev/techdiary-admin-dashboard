@@ -43,11 +43,9 @@ const Topbar = (props) => {
     const signOutHandler = async () => {
         try {
             await logout();
-            localStorage.removeItem('AUTH_TOKEN');
             client.clearStore();
             Toastr.success('You have successfully logged out');
             history.push('/sign-in');
-            window.location.reload();
         } catch {
             history.push('/sign-in');
         }
