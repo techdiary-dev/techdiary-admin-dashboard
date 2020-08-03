@@ -36,7 +36,7 @@ const TotalArticle = (props) => {
 
     const classes = useStyles();
 
-    const { data } = useQuery(TOTAL_ARTICLE);
+    const { data, loading } = useQuery(TOTAL_ARTICLE);
 
     return (
         <Card {...rest} className={clsx(classes.root, className)}>
@@ -51,11 +51,11 @@ const TotalArticle = (props) => {
                             TOTAL ARTICLE
                         </Typography>
                         <Typography variant="h3">
-                            {data ? (
-                                data.articles.resourceCount
-                            ) : (
+                            {loading && (
                                 <CircularProgress color="secondary" size={17} />
                             )}
+
+                            {data?.articles.resourceCount}
                         </Typography>
                     </Grid>
                     <Grid item>
