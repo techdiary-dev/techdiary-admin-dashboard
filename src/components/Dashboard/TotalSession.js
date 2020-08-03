@@ -36,7 +36,7 @@ const TotalSession = (props) => {
 
     const classes = useStyles();
 
-    const { data } = useQuery(TOTAL_SESSION);
+    const { data, loading } = useQuery(TOTAL_SESSION);
 
     return (
         <Card {...rest} className={clsx(classes.root, className)}>
@@ -51,11 +51,11 @@ const TotalSession = (props) => {
                             TOTAL SESSION
                         </Typography>
                         <Typography variant="h3">
-                            {data ? (
-                                data.sessions.resourceCount
-                            ) : (
+                            {loading && (
                                 <CircularProgress color="secondary" size={17} />
                             )}
+
+                            {data?.sessions.resourceCount}
                         </Typography>
                     </Grid>
                     <Grid item>
