@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Toastr from 'toastr';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -23,6 +24,12 @@ import { USER_PROFILE, UPDATE_PROFILE } from '../quries/USER';
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(4)
+    },
+    progress: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%'
     },
     overflow: {
         overflow: 'visible'
@@ -149,6 +156,13 @@ const EditUserPage = ({
             Toastr.error(e.networkError.result.errors[0].message);
         }
     };
+
+    if (loading)
+        return (
+            <div className={`${classes.progress}`}>
+                <CircularProgress color="secondary" size={35} />
+            </div>
+        );
 
     return (
         <div className={classes.root}>
