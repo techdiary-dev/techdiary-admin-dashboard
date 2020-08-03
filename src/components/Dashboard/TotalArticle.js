@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 import { TOTAL_ARTICLE } from '../../quries/ARTICLE';
 
@@ -38,6 +38,8 @@ const TotalArticle = (props) => {
 
     const { data, loading } = useQuery(TOTAL_ARTICLE);
 
+    if (loading) return <Skeleton variant="rect" height={96} />;
+
     return (
         <Card {...rest} className={clsx(classes.root, className)}>
             <CardContent>
@@ -51,10 +53,6 @@ const TotalArticle = (props) => {
                             TOTAL ARTICLE
                         </Typography>
                         <Typography variant="h3">
-                            {loading && (
-                                <CircularProgress color="secondary" size={17} />
-                            )}
-
                             {data?.articles.resourceCount}
                         </Typography>
                     </Grid>
