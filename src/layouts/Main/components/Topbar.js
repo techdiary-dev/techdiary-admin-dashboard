@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Topbar = (props) => {
-    const { history } = props;
+    const history = useHistory();
     const { className, onSidebarOpen, ...rest } = props;
     const [logout, { client }] = useMutation(ADMIN_LOGOUT);
 
@@ -89,4 +89,4 @@ Topbar.propTypes = {
     onSidebarOpen: PropTypes.func
 };
 
-export default withRouter(Topbar);
+export default Topbar;
