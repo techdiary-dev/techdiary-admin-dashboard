@@ -26,6 +26,7 @@ const FeaturedArticlesPage = () => {
     }, []);
 
     const { fetchMore } = useQuery(FEATURED_ARTICLE_LIST, {
+        fetchPolicy: 'cache-only',
         errorPolicy: 'all'
     });
 

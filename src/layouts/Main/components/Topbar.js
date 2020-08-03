@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -56,7 +56,9 @@ const Topbar = (props) => {
     return (
         <AppBar {...rest} className={clsx(classes.root, className)}>
             <Toolbar>
-                <Logo fillColor="white" strokeColor="white" />
+                <Link to="/dashboard">
+                    <Logo fillColor="white" strokeColor="white" />
+                </Link>
                 <div className={classes.flexGrow} />
                 <Hidden mdDown>
                     <IconButton color="inherit">

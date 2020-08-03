@@ -25,6 +25,7 @@ const UsersPage = () => {
     }, []);
 
     const { fetchMore } = useQuery(USER_LIST, {
+        fetchPolicy: 'cache-only',
         errorPolicy: 'all'
     });
 

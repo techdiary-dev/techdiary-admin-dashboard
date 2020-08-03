@@ -26,6 +26,7 @@ const SessionsPage = () => {
     }, []);
 
     const { fetchMore } = useQuery(SESSION_LIST, {
+        fetchPolicy: 'cache-only',
         errorPolicy: 'all'
     });
 
@@ -99,14 +100,12 @@ const SessionsPage = () => {
                         });
                     }
                 }}
-              
                 options={{
                     search: false,
                     headerStyle: {
                         fontSize: '16px',
                         fontWeight: 'bold'
-                    },
-                   
+                    }
                 }}
                 actions={[
                     {

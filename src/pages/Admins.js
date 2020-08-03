@@ -25,6 +25,7 @@ const CreateAdminPage = () => {
     }, []);
 
     const { fetchMore } = useQuery(ADMIN_LIST, {
+        fetchPolicy: 'cache-only',
         errorPolicy: 'all'
     });
 

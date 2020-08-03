@@ -26,6 +26,7 @@ const PinnedArticlesPage = () => {
     }, []);
 
     const { fetchMore } = useQuery(PINNED_ARTICLE_LIST, {
+        fetchPolicy: 'cache-only',
         errorPolicy: 'all'
     });
 

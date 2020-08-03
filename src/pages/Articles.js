@@ -30,6 +30,7 @@ const ArticlesPage = () => {
     }, []);
 
     const { fetchMore } = useQuery(ARTICLE_LIST, {
+        fetchPolicy: 'cache-only',
         errorPolicy: 'all'
     });
     const [deleteArticle] = useMutation(DELETE_ARTICLE);
