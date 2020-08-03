@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
 import PeopleIcon from '@material-ui/icons/People';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 import { TOTAL_SESSION } from '../../quries/SESSION';
 
@@ -38,6 +38,8 @@ const TotalSession = (props) => {
 
     const { data, loading } = useQuery(TOTAL_SESSION);
 
+    if (loading) return <Skeleton variant="rect" height={96} />;
+
     return (
         <Card {...rest} className={clsx(classes.root, className)}>
             <CardContent>
@@ -51,10 +53,6 @@ const TotalSession = (props) => {
                             TOTAL SESSION
                         </Typography>
                         <Typography variant="h3">
-                            {loading && (
-                                <CircularProgress color="secondary" size={17} />
-                            )}
-
                             {data?.sessions.resourceCount}
                         </Typography>
                     </Grid>
