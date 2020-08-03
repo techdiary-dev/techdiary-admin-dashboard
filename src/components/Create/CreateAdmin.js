@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers';
-import { withRouter } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
@@ -173,4 +172,4 @@ CreateAdmin.propTypes = {
     history: PropTypes.object
 };
 
-export default withRouter(CreateAdmin);
+export default CreateAdmin;
